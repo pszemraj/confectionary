@@ -1,12 +1,10 @@
 cleantext==1.1.4
-colorama==0.4.4
 fpdf==1.7.2
+fpdf2==2.5.0
 gensim==4.1.2
-gingerit==0.8.2
 natsort==7.1.1
 nltk==3.6.7
 pandas==1.4.0
-ray==1.9.2
 scikit_learn==1.0.2
 textsplit==0.5
 tqdm==4.62.3
