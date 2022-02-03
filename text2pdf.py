@@ -1,6 +1,10 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 text2pdf.py - a script to convert text files to pdf. iterates through a directory, loads each file, and converts it to ONE pdf.
+
+python text2pdf.py -i /path/to/input/dir -o /path/to/output/dir will create one pdf from all txt files in the input directory and save it to the output directory. Add -r to load files recursively.
+
 """
 import argparse
 import os
@@ -10,9 +14,8 @@ from pathlib import Path
 from tqdm.auto import tqdm
 
 from pdf import PDF
-from report_generation import *
-from utils import *
-from utils import cleantxt_wrap, create_folder, load_files_ext
+from report_generation import render_toc,  estimate_TOC_pages
+from utils import beautify_filename, cleantxt_wrap, get_timestamp, load_files_ext
 
 
 def get_parser():

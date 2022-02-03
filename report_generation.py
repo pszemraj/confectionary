@@ -1,5 +1,5 @@
 """
-this script contains helper functions to generate a PDF report from a list of entries.
+this script contains helper functions to generate a PDF report from a list of entries, including paragraphs splitting by coherence, and a table of contents.
 """
 import math
 import pickle
@@ -12,9 +12,6 @@ from sklearn.feature_extraction.text import CountVectorizer
 from textsplit.algorithm import split_optimal
 from textsplit.tools import SimpleSentenceTokenizer, get_penalty, get_segments
 from tqdm.auto import tqdm
-
-nltk.download("punkt")
-
 
 model_storage_loc = Path.cwd() / "models"
 model_storage_loc.mkdir(exist_ok=True)
