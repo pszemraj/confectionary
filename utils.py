@@ -73,6 +73,7 @@ def dict_sort_by_keys(d):
     """
     return {k: v for k, v in natsorted(d.items(), key=lambda item: item[0])}
 
+
 def dict_sort_by_vals(d):
     """
     dict_sort_by_keys - given a dictionary, sorts and returns the dictionary sorted by ascending values
@@ -86,6 +87,7 @@ def dict_sort_by_vals(d):
     dict, sorted dictionary
     """
     return {k: v for k, v in natsorted(d.items(), key=lambda item: item[1])}
+
 
 def load_files_ext(target_dir, ext, recursive=False):
     """

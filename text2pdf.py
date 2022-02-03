@@ -14,7 +14,7 @@ from pathlib import Path
 from tqdm.auto import tqdm
 
 from pdf import PDF
-from report_generation import render_toc,  estimate_TOC_pages
+from report_generation import render_toc, estimate_TOC_pages
 from utils import beautify_filename, cleantxt_wrap, get_timestamp, load_files_ext
 
 
