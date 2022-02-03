@@ -8,7 +8,7 @@ import re
 import shutil
 import warnings
 from datetime import datetime
-from os.path import isfile, join
+from os.path import join
 from pathlib import Path
 
 import wordninja
@@ -76,7 +76,8 @@ def dict_sort_by_keys(d):
 
 def load_files_ext(target_dir, ext, recursive=False):
     """
-    Loads all files with a specific extension from a given path.
+    load_files_ext - loads all files with a given extension from a directory, optionally recursively. It then returns a list of the files that is sorted by name.
+
     :param path: Path to the files.
     :param ext: Extension of the files.
     :param recursive: If True, the function will recursively search for files.
@@ -98,6 +99,11 @@ def load_files_ext(target_dir, ext, recursive=False):
 
 
 def get_timestamp(detailed=False):
+    """
+    get_timestamp - returns a timestamp in string format
+
+    detailed : bool, optional, default False, if True, returns a timestamp with seconds
+    """
     if detailed:
         return datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     else:
@@ -109,8 +115,10 @@ def create_folder(directory):
 
 
 def corr(s):
-    # adds space after period if there isn't one
-    # removes extra spaces
+    """
+    corr - adds space after period if there isn't one. For example, "hello.there" -> "hello. there"
+            removes extra spaces. For example, "hello  there" -> "hello there"
+    """
     return re.sub(r"\.(?! )", ". ", re.sub(r" +", " ", s))
 
 
@@ -181,9 +189,21 @@ def beautify_filename(
     word_separator="_",
     replace_underscores=True,
 ):
-    # takes a filename stored as text, removes extension, separates into X words ...
-    # and returns a nice filename with the words separateed by
-    # useful for when you are reading files, doing things to them, and making new files
+    """
+    beautify_filename - given a filename, returns a string with the first num_words words separated by word_separator
+
+    Parameters
+    ----------
+    filename : str, required, input filename
+    num_words : int, optional, number of words to include in the string, default is 20
+    start_reverse : bool, optional, if True, the first num_words words are reversed, default is False
+    word_separator : str, optional, word separator, default is "_"
+    replace_underscores : bool, optional, if True, replaces underscores with a whitespace at the end, default is True
+
+    Returns
+    -------
+    str, string with the first num_words words separated by word_separator
+    """
 
     filename = str(filename)
     current_name = filename.split(".")[0]
@@ -210,6 +230,16 @@ def beautify_filename(
 
 
 def move2completed(from_dir, filename, new_folder="completed", verbose=False):
+    """
+    move2completed moves a file from a directory to a new directory.
+
+    Parameters
+    ----------
+    from_dir : str, the directory to move the file from
+    filename : str, the name of the file to move
+    new_folder : str, optional, the name of the new directory to move the file to, defaults to "completed"
+    verbose : bool, optional, whether to print the file moved, defaults to False
+    """
 
     # this is the better version
     old_filepath = join(from_dir, filename)
