@@ -1,9 +1,9 @@
+"""
+This module contains the class Pdf. It is used to generate a PDF report from a list of entries.
+"""
 import math
 import urllib
-from pathlib import Path
 
-import gensim
-import gensim.downloader as api
 import pandas as pd
 from fpdf import FPDF, TitleStyle
 
