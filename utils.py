@@ -73,6 +73,19 @@ def dict_sort_by_keys(d):
     """
     return {k: v for k, v in natsorted(d.items(), key=lambda item: item[0])}
 
+def dict_sort_by_vals(d):
+    """
+    dict_sort_by_keys - given a dictionary, sorts and returns the dictionary sorted by ascending values
+
+    Parameters
+    ----------
+    d : dict, required, input dictionary
+
+    Returns
+    -------
+    dict, sorted dictionary
+    """
+    return {k: v for k, v in natsorted(d.items(), key=lambda item: item[1])}
 
 def load_files_ext(target_dir, ext, recursive=False):
     """
@@ -93,9 +106,9 @@ def load_files_ext(target_dir, ext, recursive=False):
         for file in target_dir.glob("*." + ext):
             files.append(file)
     ids = [get_first_number(file.name) for file in files]
-    my_dict = dict(zip(ids, files))
-    sorted_dict = dict_sort_by_keys(my_dict)
-    return sorted_dict.values()
+    my_dict = dict(zip(files, ids))
+    sorted_dict = dict_sort_by_vals(my_dict)
+    return sorted_dict.keys()
 
 
 def get_timestamp(detailed=False):
