@@ -1,0 +1,5 @@
+#local files
+
+*__pycache__*
+*models/
+*pdf*/
