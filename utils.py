@@ -334,7 +334,7 @@ def create_kw_extractor(
     deduplication_algo="seqm",
     windowSize=10,
     numOfKeywords=10,
-    ddpt=0.9,
+    ddpt=0.7,
 ):
     """
     creates a keyword extractor object
