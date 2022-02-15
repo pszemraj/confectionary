@@ -18,8 +18,7 @@ class PDF(FPDF):
     helpful doc: https://pyfpdf.github.io/fpdf2/ReferenceManual.html
     Parameters
     ----------
-    FPDF : [type]
-        [description]
+    FPDF : class, optional, default FPDF, the class FPDF
     """
 
     def __init__(
@@ -44,6 +43,16 @@ class PDF(FPDF):
     def header(
         self, top_margin=10, header_text="", header_font_size=8, header_font_style="I"
     ):
+        """
+        header - add a header to the PDF
+
+        Parameters
+        ----------
+        top_margin : int, optional, default 10, the top margin of the header
+        header_text : str, optional, default "", the text to be displayed in the header
+        header_font_size : int, optional, default 8, the font size of the header text
+        header_font_style : str, optional, default "I", the font style of the header text
+        """
         self.set_y(top_margin)  # set 1 CM from the top
         self.set_font("helvetica", header_font_style, header_font_size)
         th = self.font_size  # Text height
@@ -72,6 +81,16 @@ class PDF(FPDF):
     def footer(
         self, footer_text="", footer_font_size=8, footer_font_style="I", text_color=128
     ):
+        """
+        footer - add a footer to the PDF
+
+        Parameters
+        ----------
+        footer_text : str, optional, default "", the text to be displayed in the footer
+        footer_font_size : int, optional, default 8, the font size of the footer text
+        footer_font_style : str, optional, default "I", the font style of the footer text
+        text_color : int, optional, default 128, the color of the footer text
+        """
         # Position at 1 cm from bottom
         self.set_y(-self.bottom_margin)  # Position at 1 cm from bottom
         # helvetica italic 8
@@ -89,6 +108,9 @@ class PDF(FPDF):
         self.cell(w=0, h=th, txt=total_footer, border=0, ln=0, link=TOC_link, align="R")
 
     def update_margins(self):
+        """
+        update_margins - update the margins of the PDF, based assigned margins
+        """
         if self.is_ewriter:
             print("EWriter mode - setting margins large")
 
@@ -120,6 +142,18 @@ class PDF(FPDF):
         sub_title_font_style="B",
         do_underline=False,
     ):
+        """
+        update_title_formats - update the title formats of the PDF, based assigned formats
+
+        Parameters
+        ----------
+        font_family : str, optional, default "Helvetica", the font family of the title
+        main_title_font_size : int, optional, default 24, the font size of the main title
+        main_title_font_style : str, optional, default "B", the font style of the main title
+        sub_title_font_size : int, optional, default 20, the font size of the sub title
+        sub_title_font_style : str, optional, default "B", the font style of the sub title
+        do_underline : bool, optional, default False, whether to underline the title
+        """
 
         self.set_section_title_styles(
             # Level 0 titles:
@@ -147,6 +181,9 @@ class PDF(FPDF):
         )
 
     def init_word2vec(self):
+        """
+        init_word2vec - initialize the word2vec model
+        """
         if self.split_paragraphs and not self.initialized_word2vec:
             gensim_model = load_word2vec_model()
             self.wrdvecs = pd.DataFrame(
@@ -154,8 +191,15 @@ class PDF(FPDF):
             )
             self.initialized_word2vec = True
 
-    def chapter_title(self, num, label):
-        self.ln(4)
+    def chapter_title(self, num:int, label:str):
+        """
+        chapter_title - add a chapter title to the PDF
+
+        Parameters
+        ----------
+        num : int, the chapter number
+        label : str, the chapter label
+        """
         self.set_font("Helvetica", "B", 14)
         self.set_fill_color(200, 220, 255)
         th = self.font_size
@@ -208,6 +252,13 @@ class PDF(FPDF):
         self.cell(0, th, "(end of excerpt)")
 
     def chapter_body_fromURL(self, aURL):
+        """
+        chapter_body_fromURL - read in a URL and add to the PDF as a chapter
+
+        Parameters
+        ----------
+        aURL : str, the URL to be added to the PDF
+        """
 
         session = urllib.request.urlopen(aURL)
         self.set_font("Times", "", 10)
@@ -263,7 +314,7 @@ class PDF(FPDF):
         self.chapter_title(num, title)
         self.chapter_body_fromURL(theURL)
 
-    def figure_title(self, title):
+    def figure_title(self, title:str):
         # self.add_page()
         self.set_font("helvetica", "B", 14)
         # Text height
@@ -280,7 +331,7 @@ class PDF(FPDF):
         self.multi_cell(w=0, h=th, txt=a_title, border="B", ln=1, align="C", fill=False)
         self.ln()
 
-    def generic_text(self, the_text, the_size=12):
+    def generic_text(self, the_text:str, the_size:int=12):
         """
         generic_text is a wrapper for multi_cell that takes a string and font size, and prints it in the current page
 
@@ -295,7 +346,7 @@ class PDF(FPDF):
         th = self.font_size
         self.multi_cell(w=0, h=th, txt=the_text, ln=1, align="L")
 
-    def comment_text(self, the_text, the_size=12, preamble="**PLEASE NOTE:** "):
+    def comment_text(self, the_text:str, the_size:int=12, preamble="**PLEASE NOTE:** "):
         """
         comment_text is a wrapper for generic_text that adds a comment to the pdf.
 

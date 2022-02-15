@@ -50,11 +50,18 @@ def estimate_TOC_pages(
                         generated PDF report. Probably should be replaced by a
                         function that computes the actual distance / space with
                         the font size etc.
+    Parameters
+    ----------
+    n_entries : int, the number of entries in the report
+    title_thresh : int, the number of entries that will be printed on a single
+                    page
+    std_thresh : int, the number of entries that will be printed on a single
+                    page
+    verbose : bool, default False, print the number of pages estimated
+
     Returns
     ------
-
     int, the number of pages to save for TOC
-
     """
     assert n_entries > 0, f"require >=1 entry to estimate # pages, got {n_entries}"
     title_num = int(math.ceil(n_entries / title_thresh))
