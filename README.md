@@ -27,19 +27,19 @@ PDF Confectionary was originally designed to be used as a command line tool, but
 
 ## Usage
 
-Current usage is restricted to command line usage.
+Current usage is restricted to command line usage:
 
-`python text2pdf.py -i /path/to/input/dir -o /path/to/output/dir`
+- `python confectionary/text2pdf.py -i /path/to/input/dir -o /path/to/output/dir`
 
 This will create one pdf from all txt files in the input directory and save it to the output directory. Add the `-r` switch to load files recursively.
 
 ### Example
 
-cmd line usage:
+- call `python confectionary/text2pdf.py -i /path/to/input/dir -o /path/to/output/dir` to create a pdf from all txt files in the input directory and save it to the output directory:
 
-`python text2pdf.py -i "C:\Users\peter\code-dev-22\misc-repos\text2pdf\example\text-files" -o "C:\Users\peter\code-dev-22\misc-repos\text2pdf\example\outputs"`
+`python confectionary/text2pdf.py -i "C:\Users\peter\code-dev-22\misc-repos\text2pdf\example\text-files" -o "C:\Users\peter\code-dev-22\misc-repos\text2pdf\example\outputs"`
 
-console output is below, the result file is in the output directory `example\outputs`.
+- console output is below, the result file is in the output directory `example\outputs`:
 
 ```
 3 files found matching extension .txt
