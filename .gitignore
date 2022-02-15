@@ -1,8 +1,10 @@
 #local files
-
 *__pycache__*
 *models/
 *pdf*/
+
+# example directory
+*example/
 
 # scratches
 *scratch/*
