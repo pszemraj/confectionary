@@ -44,7 +44,7 @@ def get_parser():
         required=False,
         default=None,
         type=str,
-        help="path to file containing keywords to be used for spell correction",
+        help="keywords identifying files to be processed",
     )
     parser.add_argument(
         "-e",
