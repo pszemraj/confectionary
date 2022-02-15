@@ -1,5 +1,5 @@
 """
-This module contains the class Pdf. It is used to generate a PDF report from a list of entries.
+This module contains the class PDF. It is used to generate a PDF report from a list of entries.
 """
 import math
 import urllib
