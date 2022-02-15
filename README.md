@@ -1,6 +1,6 @@
 # PDF Confectionary
 
-PDF Confectionary is a tool for creating templated PDFs from text files, using FPDF2.
+PDF Confectionary is a tool for creating templated PDFs from text files, using [FPDF2](https://pyfpdf.github.io/fpdf2/index.html).
 
 ## Installation
 
