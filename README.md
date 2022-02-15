@@ -1,4 +1,4 @@
-# PDF Confectionary
+# PDF Confectionary :cupcake:
 
 PDF Confectionary is a tool for quickly creating templated PDFs from text files using [FPDF2](https://pyfpdf.github.io/fpdf2/index.html). Go create some *sweet* PDFs.
 
