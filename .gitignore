@@ -1,9 +1,11 @@
 #local files
 *__pycache__*
+# downloaded word2vec models
 *models/
+# generated pdfs
 *pdf*/
 
-# example directory
+# repo examples
 *example/
 
 # scratches
