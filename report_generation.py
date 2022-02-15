@@ -43,7 +43,7 @@ def load_word2vec_model(
 
 
 def estimate_TOC_pages(
-    n_entries: int, title_thresh: int = 41, std_thresh: int = 60, verbose=False
+    n_entries: int, title_thresh: int = 39, std_thresh: int = 60, verbose=False
 ):
     """
     estimate_TOC_pages - a naive estimator for the number of pages required for
@@ -198,7 +198,7 @@ def p_outside(pdf, text, **kwargs):
     pdf.multi_cell(w=pdf.epw, h=pdf.font_size, txt=text, ln=1, **kwargs)
 
 
-def render_toc(pdf, outline):
+def render_toc(pdf, outline, title="Table of Contents", verbose=False):
     """
     render_toc - renders the outline of the pdf
 
@@ -213,7 +213,7 @@ def render_toc(pdf, outline):
     pdf.set_font("Helvetica", size=16)
     pdf.set_text_color(0)
     pdf.underline = False
-    p_outside(pdf, "Table of Contents", align="L")  # write title of TOC
+    p_outside(pdf, title, align="L")  # write title of TOC
     pdf.y += 15
     pdf.set_font("Courier", size=12)
     # iterate through items
