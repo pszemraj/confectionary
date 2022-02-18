@@ -1,4 +1,5 @@
 import glob
+import os
 import setuptools
 from pathlib import Path
 
@@ -31,6 +32,19 @@ def get_requirements():
         requirements = f.readlines()
     return list(requirements)
 
+def scour_for_file(file_name:str):
+    """
+    scour_for_file - search every possible location for a file name. Load each line from that filename into a list.
+    """
+    contents = []
+    for root, dirs, files in os.walk("."):
+        if file_name in files:
+            with open(os.path.join(root, file_name), "r") as f:
+                contents = f.readlines()
+    assert len(contents) > 0, f"Could not find {file_name} in any of the locations"
+    file_contents = [l for l in contents if l.strip()]
+    return file_contents
+
 
 try:
     with open("README.md", "r", encoding="utf-8") as fh:
@@ -39,7 +53,7 @@ except FileNotFoundError as e:
     print(f"could not read README.md: {e}")
     long_description = get_package_description()
 
-requirements = get_requirements()
+requirements = scour_for_file("requirements.txt")
 scripts = get_scripts_from_bin()
 
 
