@@ -3,10 +3,6 @@ import setuptools
 from pathlib import Path
 
 
-def get_scripts_from_bin():
-    """Get all local scripts from bin so they are included in the package."""
-    return glob.glob("bin/*")
-
 
 def get_package_description():
     """Returns a description of this package from the markdown files."""
@@ -24,6 +20,19 @@ def get_package_description():
         history = "No history yet."
     return f"{readme}\n\n{history}"
 
+try:
+    with open("README.md", "r", encoding="utf-8") as fh:
+        long_description = fh.read()
+except FileNotFoundError as e:
+    print(f"could not read README.md: {e}")
+    long_description = get_package_description()
+
+
+def get_scripts_from_bin():
+    """Get all local scripts from bin so they are included in the package."""
+    return glob.glob("bin/*")
+
+
 
 def get_requirements():
     """Returns all requirements for this package."""
@@ -37,7 +46,7 @@ setuptools.setup(
     author="Peter Szemraj, Jonathan Lehner",
     author_email="szemraj.dev@gmail.com",
     description="A tool to quickly create sweet PDF files from text files.",
-    long_description=get_package_description(),
+    long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/pszemraj/confectionary",
     # packages=setuptools.find_packages(),
