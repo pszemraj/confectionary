@@ -13,5 +13,7 @@ Python version: `3.9.X` is officially supported. Install packages with `pip inst
 
 ## Style guidelines:
 
-- python code should be autopep8 compliant, and preferably formatted with `black`
+- python code should be autopep8 compliant, and preferably formatted with `black`. A link to the [black repo](https://github.com/psf/black) is provided.
 - commit messages should be short and concise, present tense, and should contain a [gitmoji](https://gitmoji.dev/) for easy categorization
+
+---
