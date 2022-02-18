@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+clean-text = "*"
+fpdf2 = "*"
+gensim = "*"
+natsort = "*"
+nltk = "*"
+pandas = "*"
+scikit-learn = "*"
+textsplit = "*"
+tqdm = "*"
+wordninja = "*"
+yake = "*"
+Unidecode = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"

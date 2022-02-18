@@ -37,9 +37,17 @@ This will create one pdf from all txt files in the input directory and save it t
 
 - call `python confectionary/text2pdf.py -i /path/to/input/dir -o /path/to/output/dir` to create a pdf from all txt files in the input directory and save it to the output directory:
 
-`python confectionary/text2pdf.py -i "C:\Users\peter\code-dev-22\misc-repos\text2pdf\example\text-files" -o "C:\Users\peter\code-dev-22\misc-repos\text2pdf\example\outputs"`
+`python confectionary/text2pdf.py -i "./example/text-files" -o "./example/outputs"`
 
 - console output is below, the result file is in the output directory `example\outputs`:
+
+### Install package
+- `pip install .`
+- `import confectionary`
+- `confectionary.text2pdf.convert_files_to_pdf("./example/text-files", "./example/outputs")`
+  
+### Note
+Thw word2vec model is quite big, 3.7GB.
 
 ```
 3 files found matching extension .txt

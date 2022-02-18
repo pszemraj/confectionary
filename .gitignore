@@ -11,3 +11,7 @@
 # scratches
 *scratch/*
 scratch
+
+# package
+*.egg-info
+build
