@@ -56,6 +56,11 @@ def fix_punct_spaces(string: str):
     string = fix_spaces.sub(lambda x: "{} ".format(x.group(1).replace(" ", "")), string)
     string = string.replace(" ' ", "'")
     string = string.replace(' " ', '"')
+    string = string.replace("- _", "-")
+    string = string.replace("_ -", "-")
+    string = string.replace(" _ ", "-")
+    string = string.replace("_ ", "-")
+    string = string.strip('_')
     return string.strip()
 
 
@@ -278,9 +283,9 @@ def simple_rename(
         if not no_ext
         else f"{header}{basename[:max_char_orig]}"
     )
-    new_name = new_name.replace("_", " ") if new_name.startswith("_") else new_name
+    renamed = fix_punct_spaces(new_name)
 
-    return new_name.strip()
+    return renamed.strip()
 
 
 def move2completed(from_dir, filename, new_folder="completed", verbose=False):
