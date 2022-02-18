@@ -1,5 +1,7 @@
 # PDF Confectionary :cupcake:
 
+> Do you work in the NLP domain and find that your end users/clients are not thrilled by receiving a ton of .txt files with your amazing results? Look no further, you are at the right place!
+
 PDF Confectionary is a tool for quickly creating templated PDFs from text files using [FPDF2](https://pyfpdf.github.io/fpdf2/index.html). Go create some *sweet* PDFs.
 
 ## About
@@ -10,7 +12,7 @@ The primary focus of this repo is to provide a simple, easy to use, and extensib
 - TOC generation & links to TOC entries on each page (click on footer)
 - keyword extraction for each txt file
 
-PDF Confectionary was originally designed to be used as a command line tool, but it can also be used as an installable Python module (WIP).
+PDF Confectionary was originally designed to be used as a command line tool, but it can also be used as an installable Python module.
 
 ---
 
@@ -23,7 +25,11 @@ PDF Confectionary was originally designed to be used as a command line tool, but
 
 ### Package Installation
 
+- to install as a python package without pip, run:
+
+    git clone <https://github.com/pszemraj/confectionary.git>
     pip install -r requirements.txt
+    pip install .
 
 ## Usage
 
@@ -33,21 +39,21 @@ Current usage is restricted to command line usage:
 
 This will create one pdf from all txt files in the input directory and save it to the output directory. Add the `-r` switch to load files recursively.
 
-### Example
+### Command Line Usage
 
 - call `python confectionary/text2pdf.py -i /path/to/input/dir -o /path/to/output/dir` to create a pdf from all txt files in the input directory and save it to the output directory:
 
 `python confectionary/text2pdf.py -i "./example/text-files" -o "./example/outputs"`
 
-- console output is below, the result file is in the output directory `example\outputs`:
+- console output is below (in the next section), the result file is in the output directory `example\outputs`.
 
-### Install package
-- `pip install .`
+### Basic Usage within Python
+
+- `python`
 - `import confectionary`
-- `confectionary.text2pdf.convert_files_to_pdf("./example/text-files", "./example/outputs")`
-  
-### Note
-Thw word2vec model is quite big, 3.7GB.
+- `confectionary.text2pdf.convert_files_to_pdf("./example/text-files", "./example/outputs", keywords="test")`
+
+Resulting output is in `example\outputs`:
 
 ```
 3 files found matching extension .txt
@@ -61,19 +67,31 @@ Building Chapters in PDF file: 100%|█| 3/3 [00
 PDF file saved to C:\Users\peter\code-dev-22\misc-repos\text2pdf\example\outputs\pdf_from_txt_Feb-15-2022\text-files_txt2pdf_Feb-15-2022_standard.pdf
 ```
 
+### Note
+
+- The word2vec model is quite big, 3.7GB. It will be downloaded if it doesn't exist, and the model will be saved to the `./models` directory.
+- The word2vec mode is not required for the text2pdf tool, and can be disabled by setting the `do_paragraph_splitting` parameter to `False` or in command line mode, by adding the `--no-split` switch.
+
 ---
 
 ## TODO list
 
-1. convert the text2pdf.py script to a module/function
-2. publish to PyPI
-3. improve TOC calculation beyond a simple title threshold
-4. Add a basic notebook demo
+[x] convert the text2pdf.py script to a module/function
+[ ] publish to PyPI
+[ ] improve TOC calculation beyond a simple title threshold
+[ ] add alternate, smaller, word2vec models for splitting paragraphs
+[ ] Add a basic notebook demo
 
 ---
 
 ## License
 
 Apache License 2.0
+
+---
+
+## Contributing
+
+Developers can contribute to this project by submitting pull requests in this repo - see details in the [contributing guide](CONTRIBUTING.md).
 
 ---

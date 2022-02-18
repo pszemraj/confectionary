@@ -3,9 +3,11 @@ import setuptools
 
 import confectionary
 
+
 def get_scripts_from_bin():
     """Get all local scripts from bin so they are included in the package."""
     return glob.glob("bin/*")
+
 
 def get_package_description():
     """Returns a description of this package from the markdown files."""
@@ -15,9 +17,10 @@ def get_package_description():
         history: str = stream.read()
     return f"{readme}\n\n{history}"
 
+
 def get_requirements():
     """Returns all requirements for this package."""
-    with open('requirements.txt') as f:
+    with open("requirements.txt") as f:
         requirements = f.read().splitlines()
     return requirements
 
