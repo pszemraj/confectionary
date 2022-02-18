@@ -1,8 +1,6 @@
 import glob
 import setuptools
 
-import confectionary
-
 
 def get_scripts_from_bin():
     """Get all local scripts from bin so they are included in the package."""
