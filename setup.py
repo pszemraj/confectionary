@@ -28,7 +28,7 @@ def get_scripts_from_bin():
 
 def get_requirements():
     """Returns all requirements for this package."""
-    with open("requirements.txt","r", encoding="utf-8") as f:
+    with open("requirements.txt", "r", encoding="utf-8") as f:
         requirements = f.readlines()
     return list(requirements)
 
@@ -46,15 +46,6 @@ def scour_for_file(file_name:str):
     return file_contents
 
 
-try:
-    with open("README.md", "r", encoding="utf-8") as fh:
-        long_description = fh.read()
-except FileNotFoundError as e:
-    print(f"could not read README.md: {e}")
-    long_description = get_package_description()
-
-requirements = scour_for_file("requirements.txt")
-scripts = get_scripts_from_bin()
 
 
 try:
@@ -64,8 +55,9 @@ except FileNotFoundError as e:
     print(f"could not read README.md: {e}")
     long_description = get_package_description()
 
-requirements = get_requirements()
-scripts = get_scripts_from_bin()
+
+# requirements = get_requirements()
+# scripts = get_scripts_from_bin()
 
 
 setuptools.setup(
@@ -77,9 +69,11 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/pszemraj/confectionary",
     include_package_data=True,
+    include_dirs=["bin"],
     # package_dir={"": "confectionary"},
+    data_files=[("", ["LICENSE"]), ("", ["requirements.txt"]), ("", ["README.md"])],
     packages=setuptools.find_packages(),
-    install_requires=requirements,
+    install_requires=scour_for_file("requirements.txt"),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: Apache Software License",
@@ -88,7 +82,7 @@ setuptools.setup(
         "Natural Language :: English",
         "Topic :: Text Processing",
     ],
-    scripts=scripts,
+    scripts=get_scripts_from_bin(),
     python_requires=">=3.7",
     setuptools_git_versioning={
         "enabled": True,
