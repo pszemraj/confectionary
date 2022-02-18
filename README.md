@@ -51,7 +51,7 @@ This will create one pdf from all txt files in the input directory and save it t
 
 - `python`
 - `import confectionary`
-- `confectionary.text2pdf.convert_files_to_pdf("./example/text-files", "./example/outputs", keywords="test")`
+- `confectionary.text2pdf.dir_to_pdf("./example/text-files", "./example/outputs", key_phrase="test")`
 
 Resulting output is in `example\outputs`:
 
@@ -77,7 +77,7 @@ PDF file saved to C:\Users\peter\code-dev-22\misc-repos\text2pdf\example\outputs
 ## TODO list
 
 [x] convert the text2pdf.py script to a module/function
-[ ] publish to PyPI
+[x] publish to PyPI
 [ ] improve TOC calculation beyond a simple title threshold
 [ ] add alternate, smaller, word2vec models for splitting paragraphs
 [ ] Add a basic notebook demo
