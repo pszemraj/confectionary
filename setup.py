@@ -27,9 +27,8 @@ def get_requirements():
 
 setuptools.setup(
     name="confectionary",
-    version="2.0.0",
     author="Peter Szemraj, Jonathan Lehner",
-    author_email="pszemraj@ethz.ch",
+    author_email="szemraj.dev@gmail.com",
     description="A tool to quickly create sweet PDF files from text files.",
     long_description=get_package_description(),
     long_description_content_type="text/markdown",
@@ -38,9 +37,13 @@ setuptools.setup(
     install_requires=get_requirements(),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+        "License :: OSI Approved :: Apache 2.0 License",
         "Operating System :: OS Independent",
     ],
     scripts=get_scripts_from_bin(),
     python_requires=">=3.7",
+    setuptools_git_versioning={
+        "enabled": True,
+    },
+    setup_requires=["setuptools-git-versioning"],
 )
