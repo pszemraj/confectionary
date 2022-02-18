@@ -1,5 +1,6 @@
 import glob
 import setuptools
+from pathlib import Path
 
 
 def get_scripts_from_bin():
@@ -9,10 +10,18 @@ def get_scripts_from_bin():
 
 def get_package_description():
     """Returns a description of this package from the markdown files."""
-    with open("README.md", "r") as stream:
-        readme: str = stream.read()
-    with open("HISTORY.md", "r") as stream:
-        history: str = stream.read()
+    _readme = Path("README.md")
+    _history = Path("HISTORY.md")
+    if _readme.exists() and _history.exists():
+        with open(_readme.resolve(), "r", encoding="utf-8", errors="ignore") as f:
+            readme = f.read()
+    else:
+        readme = "README"
+    if _history.exists():
+        with open(_history.resolve(), "r", encoding="utf-8", errors="ignore") as f:
+            history = f.read()
+    else:
+        history = "No history yet."
     return f"{readme}\n\n{history}"
 
 
