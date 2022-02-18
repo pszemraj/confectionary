@@ -22,19 +22,19 @@ from confectionary.utils import (
     load_files_ext,
 )
 
+
 def dir_to_pdf(
     input_dir,
     output_dir=None,
-    extension:str=".txt",
-    key_phrase:str=None,
-    intro_text:str=None,
-    toc_comments:str=None,
+    extension: str = ".txt",
+    key_phrase: str = None,
+    intro_text: str = None,
+    toc_comments: str = None,
     create_ewriter_notes=False,
     do_paragraph_splitting=True,
     nltk_usepunkt=True,
     be_verbose=False,
     recurse=False,
-
 ):
     """
     dir_to_pdf - converts all files in a directory 'input_dir' with extension 'extension' to a single pdf.
@@ -66,7 +66,9 @@ def dir_to_pdf(
     out_p_full = out_dir / out_subfolder
     out_p_full.mkdir(parents=True, exist_ok=True)
 
-    approved_files = load_files_ext(src_dir, ext=extension, recursive=recurse, verbose=be_verbose)
+    approved_files = load_files_ext(
+        src_dir, ext=extension, recursive=recurse, verbose=be_verbose
+    )
     assert len(approved_files) > 0, "No files found in the input directory"
     if be_verbose:
         pp.pprint([f.name for f in approved_files])
@@ -84,7 +86,7 @@ def dir_to_pdf(
     pdf.set_title(title)
     pdf.set_author(os.getlogin())
 
-    pdf.update_margins() # update formatting
+    pdf.update_margins()  # update formatting
     pdf.update_title_formats()
 
     pdf.add_page()
@@ -109,8 +111,19 @@ def dir_to_pdf(
     pdf.insert_toc_placeholder(render_toc, pages=toc_pages)
 
     # define words to replace in the chapter names
-    seq2replace = ["fin", "pegasus", "phone", "con", "-v-", "---", "sum",
-                   "fins","phones", "cons", "summ",]
+    seq2replace = [
+        "fin",
+        "pegasus",
+        "phone",
+        "con",
+        "-v-",
+        "---",
+        "sum",
+        "fins",
+        "phones",
+        "cons",
+        "summ",
+    ]
 
     if be_verbose:
         print("\nPrinting Chapters to PDF")
@@ -140,6 +153,7 @@ def dir_to_pdf(
     if be_verbose:
         print(f"\nPDF file written to {_out}")
     return _out
+
 
 def get_parser():
     """
@@ -209,6 +223,7 @@ def get_parser():
     )
 
     return parser
+
 
 if __name__ == "__main__":
 
