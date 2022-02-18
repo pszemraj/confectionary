@@ -27,9 +27,20 @@ def get_scripts_from_bin():
 
 def get_requirements():
     """Returns all requirements for this package."""
-    with open("requirements.txt") as f:
+    with open("requirements.txt","r", encoding="utf-8") as f:
         requirements = f.readlines()
-    return requirements
+    return list(requirements)
+
+
+try:
+    with open("README.md", "r", encoding="utf-8") as fh:
+        long_description = fh.read()
+except FileNotFoundError as e:
+    print(f"could not read README.md: {e}")
+    long_description = get_package_description()
+
+requirements = get_requirements()
+scripts = get_scripts_from_bin()
 
 
 try:
@@ -51,9 +62,9 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/pszemraj/confectionary",
-    # packages=setuptools.find_packages(),
+    include_package_data=True,
     package_dir={"": "confectionary"},
-    packages=setuptools.find_packages(where="confectionary"),
+    packages=setuptools.find_packages(),
     install_requires=requirements,
     classifiers=[
         "Programming Language :: Python :: 3",
