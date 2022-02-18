@@ -3,7 +3,6 @@ import setuptools
 from pathlib import Path
 
 
-
 def get_package_description():
     """Returns a description of this package from the markdown files."""
     _readme = Path("README.md")
@@ -20,10 +19,10 @@ def get_package_description():
         history = "No history yet."
     return f"{readme}\n\n{history}"
 
+
 def get_scripts_from_bin():
     """Get all local scripts from bin so they are included in the package."""
     return glob.glob("bin/*")
-
 
 
 def get_requirements():
@@ -31,6 +30,7 @@ def get_requirements():
     with open("requirements.txt") as f:
         requirements = f.readlines()
     return requirements
+
 
 try:
     with open("README.md", "r", encoding="utf-8") as fh:
