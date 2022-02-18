@@ -43,6 +43,17 @@ requirements = get_requirements()
 scripts = get_scripts_from_bin()
 
 
+try:
+    with open("README.md", "r", encoding="utf-8") as fh:
+        long_description = fh.read()
+except FileNotFoundError as e:
+    print(f"could not read README.md: {e}")
+    long_description = get_package_description()
+
+requirements = get_requirements()
+scripts = get_scripts_from_bin()
+
+
 setuptools.setup(
     name="confectionary",
     author="Peter Szemraj, Jonathan Lehner",
