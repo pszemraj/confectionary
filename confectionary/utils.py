@@ -17,7 +17,7 @@ from cleantext import clean
 from natsort import natsorted
 
 
-def get_first_number(my_string:str):
+def get_first_number(my_string: str):
     """
     get_first_number - return the first number found in a string with regex as an integer
 
@@ -39,7 +39,7 @@ def get_first_number(my_string:str):
         return int(search.group(0))
 
 
-def fix_punct_spaces(string:str):
+def fix_punct_spaces(string: str):
     """
     fix_punct_spaces - replace spaces around punctuation with punctuation. For example, "hello , there" -> "hello, there"
 
@@ -59,7 +59,7 @@ def fix_punct_spaces(string:str):
     return string.strip()
 
 
-def dict_sort_by_keys(d:dict):
+def dict_sort_by_keys(d: dict):
     """
     dict_sort_by_keys - given a dictionary, sorts and returns the dictionary sorted by ascending keys
 
@@ -74,7 +74,7 @@ def dict_sort_by_keys(d:dict):
     return {k: v for k, v in natsorted(d.items(), key=lambda item: item[0])}
 
 
-def dict_sort_by_vals(d:dict):
+def dict_sort_by_vals(d: dict):
     """
     dict_sort_by_keys - given a dictionary, sorts and returns the dictionary sorted by ascending values
 
@@ -132,7 +132,7 @@ def create_folder(directory):
     os.makedirs(directory, exist_ok=True)
 
 
-def corr(s:str):
+def corr(s: str):
     """
     corr - adds space after period if there isn't one. For example, "hello.there" -> "hello. there"
             removes extra spaces. For example, "hello  there" -> "hello there"
@@ -140,7 +140,7 @@ def corr(s:str):
     return re.sub(r"\.(?! )", ". ", re.sub(r" +", " ", s))
 
 
-def cleantxt_wrap(ugly_text:str):
+def cleantxt_wrap(ugly_text: str):
     # a wrapper for clean text with options different than default
 
     # https://pypi.org/project/clean-text/
@@ -247,8 +247,13 @@ def beautify_filename(
     return pretty_name.strip()
 
 
-def simple_rename(filepath, header:str="", max_char_orig:int=None,
-                  target_ext:str=".txt", no_ext:bool=False,):
+def simple_rename(
+    filepath,
+    header: str = "",
+    max_char_orig: int = None,
+    target_ext: str = ".txt",
+    no_ext: bool = False,
+):
     """
     simple_rename - given a filepath, extracts the base name and adds a header, and returns a new filepath with extension target_ext. The extracted name is truncated to max_char_orig if specified.
 
@@ -268,10 +273,15 @@ def simple_rename(filepath, header:str="", max_char_orig:int=None,
     max_char_orig = len(basename) if max_char_orig is None else max_char_orig
     target_ext = target_ext if target_ext.startswith(".") else f".{target_ext}"
 
-    new_name = f'{header}_{basename[:max_char_orig]}{target_ext}' if not no_ext else f'{header}{basename[:max_char_orig]}'
+    new_name = (
+        f"{header}_{basename[:max_char_orig]}{target_ext}"
+        if not no_ext
+        else f"{header}{basename[:max_char_orig]}"
+    )
     new_name = new_name.replace("_", " ") if new_name.startswith("_") else new_name
 
     return new_name.strip()
+
 
 def move2completed(from_dir, filename, new_folder="completed", verbose=False):
     """

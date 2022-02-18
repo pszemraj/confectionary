@@ -15,8 +15,12 @@ from tqdm.auto import tqdm
 
 from confectionary.pdf import PDF
 from confectionary.report_generation import estimate_TOC_pages, render_toc
-from confectionary.utils import (cleantxt_wrap, get_timestamp, load_files_ext,
-                                 simple_rename)
+from confectionary.utils import (
+    cleantxt_wrap,
+    get_timestamp,
+    load_files_ext,
+    simple_rename,
+)
 
 
 def dir_to_pdf(
@@ -108,8 +112,8 @@ def dir_to_pdf(
 
     # define words to replace in the chapter names
     seq2replace = [
-    "fins",
-    "phones",
+        "fins",
+        "phones",
         "cons",
         "fin",
         "pegasus",
@@ -129,7 +133,7 @@ def dir_to_pdf(
         out_name = simple_rename(textfile, max_char_orig=75, no_ext=True).lower()
         for ugly_w in seq2replace:
             out_name = out_name.replace(ugly_w, "")  # clean up filename
-        out_name = out_name[0].upper() + out_name[1:] # capitalize first letter
+        out_name = out_name[0].upper() + out_name[1:]  # capitalize first letter
         if be_verbose:
             print(f"attempting chapter {i} - filename: {out_name}")
         pdf.print_chapter(filepath=str(textfile.resolve()), num=i, title=out_name)
