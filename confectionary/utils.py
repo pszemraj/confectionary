@@ -89,7 +89,7 @@ def dict_sort_by_vals(d):
     return {k: v for k, v in natsorted(d.items(), key=lambda item: item[1])}
 
 
-def load_files_ext(target_dir, ext:str, recursive=False):
+def load_files_ext(target_dir, ext:str, recursive=False, verbose=False):
     """
     load_files_ext - loads all files with a given extension from a directory, optionally recursively. It then returns a list of the files that is sorted by name.
 
@@ -100,8 +100,10 @@ def load_files_ext(target_dir, ext:str, recursive=False):
     :return: List of files, sorted by the first number found in the filename.
     """
     target_dir = Path(target_dir)
-    ext = ext.lower().replace('.', '') # make sure extension is lowercase and without dot
+    ext = ext.replace('.', '') # make sure extension is lowercase and without dot
     files = []
+    if verbose:
+        print("Loading files from {} with extension {}".format(target_dir, ext))
     if recursive:
         for file in target_dir.glob("**/*." + ext):
             files.append(file)
