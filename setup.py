@@ -45,8 +45,11 @@ setuptools.setup(
     packages=setuptools.find_packages(where="confectionary"),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: Apache 2.0 License",
+        "License :: OSI Approved :: Apache Software License",
+        "Development Status :: 3 - Alpha",
         "Operating System :: OS Independent",
+        "Natural Language :: English",
+        "Topic :: Text Processing",
     ],
     scripts=get_scripts_from_bin(),
     python_requires=">=3.7",
