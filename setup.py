@@ -35,7 +35,7 @@ setuptools.setup(
     url="https://github.com/pszemraj/confectionary",
     # packages=setuptools.find_packages(),
     package_dir={"": "confectionary"},
-    packages=get_requirements(),
+    packages=setuptools.find_packages(where="confectionary"),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: Apache 2.0 License",
