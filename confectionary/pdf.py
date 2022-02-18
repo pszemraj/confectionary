@@ -191,7 +191,7 @@ class PDF(FPDF):
             )
             self.initialized_word2vec = True
 
-    def chapter_title(self, num:int, label:str):
+    def chapter_title(self, num: int, label: str):
         """
         chapter_title - add a chapter title to the PDF
 
@@ -314,7 +314,7 @@ class PDF(FPDF):
         self.chapter_title(num, title)
         self.chapter_body_fromURL(theURL)
 
-    def figure_title(self, title:str):
+    def figure_title(self, title: str):
         # self.add_page()
         self.set_font("helvetica", "B", 14)
         # Text height
@@ -331,7 +331,7 @@ class PDF(FPDF):
         self.multi_cell(w=0, h=th, txt=a_title, border="B", ln=1, align="C", fill=False)
         self.ln()
 
-    def generic_text(self, the_text:str, the_size:int=12):
+    def generic_text(self, the_text: str, the_size: int = 12):
         """
         generic_text is a wrapper for multi_cell that takes a string and font size, and prints it in the current page
 
@@ -346,7 +346,9 @@ class PDF(FPDF):
         th = self.font_size
         self.multi_cell(w=0, h=th, txt=the_text, ln=1, align="L")
 
-    def comment_text(self, the_text:str, the_size:int=12, preamble="**PLEASE NOTE:** "):
+    def comment_text(
+        self, the_text: str, the_size: int = 12, preamble="**PLEASE NOTE:** "
+    ):
         """
         comment_text is a wrapper for generic_text that adds a comment to the pdf.
 

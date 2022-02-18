@@ -15,7 +15,12 @@ from tqdm.auto import tqdm
 
 from confectionary.pdf import PDF
 from confectionary.report_generation import render_toc, estimate_TOC_pages
-from confectionary.utils import beautify_filename, cleantxt_wrap, get_timestamp, load_files_ext
+from confectionary.utils import (
+    beautify_filename,
+    cleantxt_wrap,
+    get_timestamp,
+    load_files_ext,
+)
 
 
 def get_parser():
@@ -88,14 +93,16 @@ def get_parser():
     return parser
 
 
-def convert_files_to_pdf(input_dir, 
-output_dir, 
-key_phrase=None, 
-create_ewriter_notes=False, 
-do_paragraph_splitting=True, 
-nltk_usepunkt=True, 
-be_verbose=False, 
-recurse=False):
+def convert_files_to_pdf(
+    input_dir,
+    output_dir,
+    key_phrase=None,
+    create_ewriter_notes=False,
+    do_paragraph_splitting=True,
+    nltk_usepunkt=True,
+    be_verbose=False,
+    recurse=False,
+):
     src_dir = Path(input_dir)
     out_dir = Path(output_dir) if output_dir else src_dir.parent
     key_phrase = src_dir.name if key_phrase is None else key_phrase
@@ -189,5 +196,13 @@ if __name__ == "__main__":
     nltk_usepunkt = not args.no_punkt
     be_verbose = args.verbose
     recurse = args.recursive
-    convert_files_to_pdf(input_dir, output_dir, key_phrase, create_ewriter_notes, do_paragraph_splitting, nltk_usepunkt, be_verbose, recurse)
-    
+    convert_files_to_pdf(
+        input_dir,
+        output_dir,
+        key_phrase,
+        create_ewriter_notes,
+        do_paragraph_splitting,
+        nltk_usepunkt,
+        be_verbose,
+        recurse,
+    )
