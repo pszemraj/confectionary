@@ -203,7 +203,7 @@ class PDF(FPDF):
         self.set_font("Helvetica", "B", 14)
         self.set_fill_color(200, 220, 255)
         th = self.font_size
-        total_title = "Chapter " + str(num) + " - " + label
+        total_title = f"Chapter {num} - {label.replace('_', ' ').strip()}"
         self.start_section(total_title)
         self.ln(4)
 
@@ -315,19 +315,27 @@ class PDF(FPDF):
         self.chapter_body_fromURL(theURL)
 
     def figure_title(self, title: str):
-        # self.add_page()
+        """
+        figure_title - add a figure title to the PDF
+        """
         self.set_font("helvetica", "B", 14)
-        # Text height
-        th = self.font_size
+        th = self.font_size # Text height
         self.multi_cell(w=0, h=th, txt=title, border="B", ln=1, align="L", fill=False)
-        # Line break
-        self.ln()
+        self.ln() # Line break
 
     def write_big_title(self, a_title: str, font_size=24, font_style="B"):
+        """
+        write_big_title - write a big title to the PDF, typically the title of the document.
+
+        Parameters
+        ----------
+        a_title : str, the title to be written
+        font_size : int, optional, by default 24, the font size to be used
+        font_style : str, optional, by default "B", the font style to be used
+        """
 
         self.set_font("Helvetica", font_style, font_size)
-        # Text height
-        th = self.font_size
+        th = self.font_size  # Text height
         self.multi_cell(w=0, h=th, txt=a_title, border="B", ln=1, align="C", fill=False)
         self.ln()
 
