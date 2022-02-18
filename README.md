@@ -21,9 +21,13 @@ PDF Confectionary was originally designed to be used as a command line tool, but
 ### Requirements
 
 - Requirements are listed in the requirements.txt file.
-- the primary requirements are: FPDF2, textsplit, and cleantext.
+- the primary requirements are: [FPDF2](https://pyfpdf.github.io/fpdf2/index.html), [textsplit](https://github.com/chschock/textsplit), and [clean-text](https://github.com/jfilter/clean-text).
 
 ### Package Installation
+
+The package can be installed using pip:
+
+    pip install confectionary
 
 To install as a python package without pip, run:
 
@@ -82,7 +86,7 @@ PDF file saved to C:\Users\peter\code-dev-22\misc-repos\text2pdf\example\outputs
 ## TODO list
 
 - [x] convert the text2pdf.py script to a module/function
-- [ ] publish to PyPI *IN-PROGRESS*
+- [x] publish to PyPI *IN-PROGRESS*
 - [ ] improve TOC calculation beyond a simple title threshold
 - [ ] add alternate, smaller, word2vec models for splitting paragraphs
 - [ ] Add a basic notebook demo
