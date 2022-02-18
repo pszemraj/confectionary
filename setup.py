@@ -52,6 +52,7 @@ setuptools.setup(
     # packages=setuptools.find_packages(),
     package_dir={"": "confectionary"},
     packages=setuptools.find_packages(where="confectionary"),
+    requires=get_requirements(),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: Apache Software License",
