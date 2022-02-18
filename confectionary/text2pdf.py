@@ -22,7 +22,7 @@ from confectionary.utils import (
     load_files_ext,
 )
 
-def convert_files_to_pdf(
+def dir_to_pdf(
     input_dir,
     output_dir=None,
     extension:str=".txt",
@@ -37,7 +37,7 @@ def convert_files_to_pdf(
 
 ):
     """
-    convert_files_to_pdf - converts all files in a directory to pdf with extension 'extension'
+    dir_to_pdf - converts all files in a directory 'input_dir' with extension 'extension' to a single pdf.
 
     Parameters
     ----------
@@ -66,7 +66,7 @@ def convert_files_to_pdf(
     out_p_full = out_dir / out_subfolder
     out_p_full.mkdir(parents=True, exist_ok=True)
 
-    approved_files = load_files_ext(src_dir, ext=extension, recursive=recurse)
+    approved_files = load_files_ext(src_dir, ext=extension, recursive=recurse, verbose=be_verbose)
     assert len(approved_files) > 0, "No files found in the input directory"
     if be_verbose:
         pp.pprint([f.name for f in approved_files])
@@ -109,7 +109,8 @@ def convert_files_to_pdf(
     pdf.insert_toc_placeholder(render_toc, pages=toc_pages)
 
     # define words to replace in the chapter names
-    seq2replace = ["fin", "pegasus", "phone", "con", "-v-", "---", "sum"]
+    seq2replace = ["fin", "pegasus", "phone", "con", "-v-", "---", "sum",
+                   "fins","phones", "cons", "summ",]
 
     if be_verbose:
         print("\nPrinting Chapters to PDF")
@@ -220,13 +221,15 @@ if __name__ == "__main__":
     nltk_usepunkt = not args.no_punkt
     be_verbose = args.verbose
     recurse = args.recursive
-    convert_files_to_pdf(
-        input_dir,
-        output_dir,
-        key_phrase,
-        create_ewriter_notes,
-        do_paragraph_splitting,
-        nltk_usepunkt,
-        be_verbose,
-        recurse,
+    _finished_pdf_loc = dir_to_pdf(
+        input_dir=input_dir,
+        output_dir=output_dir,
+        key_phrase=key_phrase,
+        create_ewriter_notes=create_ewriter_notes,
+        do_paragraph_splitting=do_paragraph_splitting,
+        nltk_usepunkt=nltk_usepunkt,
+        be_verbose=be_verbose,
+        recurse=recurse,
     )
+
+    print(f"\nPDF file written to {_finished_pdf_loc}")
