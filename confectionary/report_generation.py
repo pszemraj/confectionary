@@ -169,7 +169,8 @@ def split_to_pars(
             f"Input text has less sentences than desired segments. Returning full text"
         )
         paragraphs = sentenced_text
-
+    # strip whitespace from the beginning and end of each paragraph
+    paragraphs = [p.strip(" ") for p in paragraphs]
     return paragraphs
 
 

@@ -234,7 +234,7 @@ class PDF(FPDF):
                 decoded_line, wordvectors=self.wrdvecs, use_punkt=True
             )
             for par in paragraph_list:
-                formatted_par = " " * 8 + par
+                formatted_par = " " * 8 + par.strip()
                 self.multi_cell(w=0, h=th, txt=formatted_par, border=0)
                 self.ln()
         else:
