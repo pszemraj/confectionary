@@ -21,7 +21,7 @@ def get_package_description():
 def get_requirements():
     """Returns all requirements for this package."""
     with open("requirements.txt") as f:
-        requirements = f.read().splitlines()
+        requirements = f.readlines()
     return requirements
 
 
@@ -33,8 +33,9 @@ setuptools.setup(
     long_description=get_package_description(),
     long_description_content_type="text/markdown",
     url="https://github.com/pszemraj/confectionary",
-    packages=setuptools.find_packages(),
-    install_requires=get_requirements(),
+    # packages=setuptools.find_packages(),
+    package_dir={"": "confectionary"},
+    packages=get_requirements(),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: Apache 2.0 License",
