@@ -1,5 +1,5 @@
-clean-text
 unidecode
+clean-text
 fpdf2
 gensim
 natsort
