@@ -1,7 +1,7 @@
 import glob
+import os
 import setuptools
 from pathlib import Path
-
 
 
 def get_package_description():
@@ -20,6 +20,32 @@ def get_package_description():
         history = "No history yet."
     return f"{readme}\n\n{history}"
 
+
+def get_scripts_from_bin():
+    """Get all local scripts from bin so they are included in the package."""
+    return glob.glob("bin/*")
+
+
+def get_requirements():
+    """Returns all requirements for this package."""
+    with open("requirements.txt","r", encoding="utf-8") as f:
+        requirements = f.readlines()
+    return list(requirements)
+
+def scour_for_file(file_name:str):
+    """
+    scour_for_file - search every possible location for a file name. Load each line from that filename into a list.
+    """
+    contents = []
+    for root, dirs, files in os.walk("."):
+        if file_name in files:
+            with open(os.path.join(root, file_name), "r") as f:
+                contents = f.readlines()
+    assert len(contents) > 0, f"Could not find {file_name} in any of the locations"
+    file_contents = [l for l in contents if l.strip()]
+    return file_contents
+
+
 try:
     with open("README.md", "r", encoding="utf-8") as fh:
         long_description = fh.read()
@@ -27,18 +53,19 @@ except FileNotFoundError as e:
     print(f"could not read README.md: {e}")
     long_description = get_package_description()
 
-
-def get_scripts_from_bin():
-    """Get all local scripts from bin so they are included in the package."""
-    return glob.glob("bin/*")
+requirements = scour_for_file("requirements.txt")
+scripts = get_scripts_from_bin()
 
 
+try:
+    with open("README.md", "r", encoding="utf-8") as fh:
+        long_description = fh.read()
+except FileNotFoundError as e:
+    print(f"could not read README.md: {e}")
+    long_description = get_package_description()
 
-def get_requirements():
-    """Returns all requirements for this package."""
-    with open("requirements.txt") as f:
-        requirements = f.readlines()
-    return requirements
+requirements = get_requirements()
+scripts = get_scripts_from_bin()
 
 
 setuptools.setup(
@@ -49,10 +76,10 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/pszemraj/confectionary",
-    # packages=setuptools.find_packages(),
-    package_dir={"": "confectionary"},
-    packages=setuptools.find_packages(where="confectionary"),
-    requires=get_requirements(),
+    include_package_data=True,
+    # package_dir={"": "confectionary"},
+    packages=setuptools.find_packages(),
+    install_requires=requirements,
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: Apache Software License",
@@ -61,7 +88,7 @@ setuptools.setup(
         "Natural Language :: English",
         "Topic :: Text Processing",
     ],
-    scripts=get_scripts_from_bin(),
+    scripts=scripts,
     python_requires=">=3.7",
     setuptools_git_versioning={
         "enabled": True,
