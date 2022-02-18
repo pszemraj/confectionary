@@ -319,9 +319,9 @@ class PDF(FPDF):
         figure_title - add a figure title to the PDF
         """
         self.set_font("helvetica", "B", 14)
-        th = self.font_size # Text height
+        th = self.font_size  # Text height
         self.multi_cell(w=0, h=th, txt=title, border="B", ln=1, align="L", fill=False)
-        self.ln() # Line break
+        self.ln()  # Line break
 
     def write_big_title(self, a_title: str, font_size=24, font_style="B"):
         """

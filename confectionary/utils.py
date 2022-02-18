@@ -60,7 +60,7 @@ def fix_punct_spaces(string: str):
     string = string.replace("_ -", "-")
     string = string.replace(" _ ", "-")
     string = string.replace("_ ", "-")
-    string = string.strip('_')
+    string = string.strip("_")
     return string.strip()
 
 
