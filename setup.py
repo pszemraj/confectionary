@@ -3,7 +3,6 @@ import setuptools
 from pathlib import Path
 
 
-
 def get_package_description():
     """Returns a description of this package from the markdown files."""
     _readme = Path("README.md")
@@ -20,18 +19,10 @@ def get_package_description():
         history = "No history yet."
     return f"{readme}\n\n{history}"
 
-try:
-    with open("README.md", "r", encoding="utf-8") as fh:
-        long_description = fh.read()
-except FileNotFoundError as e:
-    print(f"could not read README.md: {e}")
-    long_description = get_package_description()
-
 
 def get_scripts_from_bin():
     """Get all local scripts from bin so they are included in the package."""
     return glob.glob("bin/*")
-
 
 
 def get_requirements():
@@ -39,6 +30,17 @@ def get_requirements():
     with open("requirements.txt") as f:
         requirements = f.readlines()
     return requirements
+
+
+try:
+    with open("README.md", "r", encoding="utf-8") as fh:
+        long_description = fh.read()
+except FileNotFoundError as e:
+    print(f"could not read README.md: {e}")
+    long_description = get_package_description()
+
+requirements = get_requirements()
+scripts = get_scripts_from_bin()
 
 
 setuptools.setup(
@@ -52,7 +54,7 @@ setuptools.setup(
     # packages=setuptools.find_packages(),
     package_dir={"": "confectionary"},
     packages=setuptools.find_packages(where="confectionary"),
-    install_requires=get_requirements(),
+    install_requires=requirements,
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: Apache Software License",
@@ -61,7 +63,7 @@ setuptools.setup(
         "Natural Language :: English",
         "Topic :: Text Processing",
     ],
-    scripts=get_scripts_from_bin(),
+    scripts=scripts,
     python_requires=">=3.7",
     setuptools_git_versioning={
         "enabled": True,
