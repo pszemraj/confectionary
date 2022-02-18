@@ -6,11 +6,11 @@ PDF Confectionary is a tool for quickly creating templated PDFs from text files 
 
 ## About
 
-The primary focus of this repo is to provide a simple, easy to use, and extensible PDF creation tool. The initial use case that this project was designed around was to convert transcribed speech to a PDF for reading & review, such as in the [vid2cleantxt](https://github.com/pszemraj/vid2cleantxt) project. Relevant features in PDF Confectionary include:
+The primary focus of this repo is to provide a simple, easy to use, and extensible PDF creation tool. The initial use case for this project was to convert transcribed speech to a PDF for reading & review, such as in the [vid2cleantxt](https://github.com/pszemraj/vid2cleantxt) project. Relevant features in PDF Confectionary include:
 
-- automatic paragraph separation
+- Automatic paragraph separation
 - TOC generation & links to TOC entries on each page (click on footer)
-- keyword extraction for each txt file
+- Keyword extraction for each txt file
 
 PDF Confectionary was originally designed to be used as a command line tool, but it can also be used as an installable Python module.
 
@@ -25,19 +25,21 @@ PDF Confectionary was originally designed to be used as a command line tool, but
 
 ### Package Installation
 
-- to install as a python package without pip, run:
+To install as a python package without pip, run:
 
-    git clone <https://github.com/pszemraj/confectionary.git>
-    pip install -r requirements.txt
-    pip install .
+1. `git clone <https://github.com/pszemraj/confectionary.git>`
+2. `pip install -r requirements.txt`
+3. `pip install .`
 
 ## Usage
 
-Current usage is restricted to command line usage:
+There are two ways to use PDF Confectionary:
 
-- `python confectionary/text2pdf.py -i /path/to/input/dir -o /path/to/output/dir`
+1. command line, via `python confectionary/text2pdf.py`
 
-This will create one pdf from all txt files in the input directory and save it to the output directory. Add the `-r` switch to load files recursively.
+2. as a python module, via the `dir_to_pdf` function.
+
+This will create one pdf from all txt files in the input directory and save it to the output directory. Add the `-r` switch (or `recurse=True` in function) to load files recursively.
 
 ### Command Line Usage
 
@@ -46,6 +48,7 @@ This will create one pdf from all txt files in the input directory and save it t
 `python confectionary/text2pdf.py -i "./example/text-files" -o "./example/outputs"`
 
 - console output is below (in the next section), the result file is in the output directory `example\outputs`.
+- additional options can be found in the `text2pdf.py` file or by passing the `-h` switch.
 
 ### Basic Usage within Python
 
@@ -67,6 +70,8 @@ Building Chapters in PDF file: 100%|█| 3/3 [00
 PDF file saved to C:\Users\peter\code-dev-22\misc-repos\text2pdf\example\outputs\pdf_from_txt_Feb-15-2022\text-files_txt2pdf_Feb-15-2022_standard.pdf
 ```
 
+- see the `dir_to_pdf` docstring for more details.
+
 ### Note
 
 - The word2vec model is quite big, 3.7GB. It will be downloaded if it doesn't exist, and the model will be saved to the `./models` directory.
@@ -76,11 +81,11 @@ PDF file saved to C:\Users\peter\code-dev-22\misc-repos\text2pdf\example\outputs
 
 ## TODO list
 
-[x] convert the text2pdf.py script to a module/function
-[x] publish to PyPI
-[ ] improve TOC calculation beyond a simple title threshold
-[ ] add alternate, smaller, word2vec models for splitting paragraphs
-[ ] Add a basic notebook demo
+- [x] convert the text2pdf.py script to a module/function
+- [ ] publish to PyPI *IN-PROGRESS*
+- [ ] improve TOC calculation beyond a simple title threshold
+- [ ] add alternate, smaller, word2vec models for splitting paragraphs
+- [ ] Add a basic notebook demo
 
 ---
 
@@ -92,6 +97,7 @@ Apache License 2.0
 
 ## Contributing
 
-Developers can contribute to this project by submitting pull requests in this repo - see details in the [contributing guide](CONTRIBUTING.md).
+- Given the open-ended nature of documentation creation, there are a lot of features that are not yet implemented. Please feel free to contribute!
+- Developers can contribute to this project by submitting pull requests in this repo - see details in the [contributing guide](CONTRIBUTING.md).
 
 ---
