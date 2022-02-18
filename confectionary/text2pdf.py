@@ -14,13 +14,9 @@ from pathlib import Path
 from tqdm.auto import tqdm
 
 from confectionary.pdf import PDF
-from confectionary.report_generation import render_toc, estimate_TOC_pages
-from confectionary.utils import (
-    beautify_filename,
-    cleantxt_wrap,
-    get_timestamp,
-    load_files_ext,
-)
+from confectionary.report_generation import estimate_TOC_pages, render_toc
+from confectionary.utils import (cleantxt_wrap, get_timestamp, load_files_ext,
+                                 simple_rename)
 
 
 def dir_to_pdf(
@@ -112,29 +108,28 @@ def dir_to_pdf(
 
     # define words to replace in the chapter names
     seq2replace = [
+    "fins",
+    "phones",
+        "cons",
         "fin",
         "pegasus",
         "phone",
         "con",
         "-v-",
         "---",
-        "sum",
-        "fins",
-        "phones",
-        "cons",
         "summ",
+        "sum",
+        "ocr",
     ]
 
     if be_verbose:
         print("\nPrinting Chapters to PDF")
     pbar = tqdm(total=len(approved_files), desc="Building Chapters in PDF file")
     for i, textfile in enumerate(approved_files):
-        out_name = beautify_filename(
-            textfile.name,
-            num_words=30,
-        )
+        out_name = simple_rename(textfile, max_char_orig=75, no_ext=True).lower()
         for ugly_w in seq2replace:
             out_name = out_name.replace(ugly_w, "")  # clean up filename
+        out_name = out_name[0].upper() + out_name[1:] # capitalize first letter
         if be_verbose:
             print(f"attempting chapter {i} - filename: {out_name}")
         pdf.print_chapter(filepath=str(textfile.resolve()), num=i, title=out_name)
