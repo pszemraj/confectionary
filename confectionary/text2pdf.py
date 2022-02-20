@@ -22,13 +22,16 @@ from confectionary.utils import (
     simple_rename,
 )
 
-def text_to_pdf(text:str,
-                output_dir=None,
+
+def text_to_pdf(
+    text: str,
+    output_dir=None,
     key_phrase: str = None,
     create_ewriter_notes=False,
     do_paragraph_splitting=True,
     nltk_usepunkt=True,
-    be_verbose=False,):
+    be_verbose=False,
+):
     """
     text_to_pdf - the most basic version, creates a PDF with no table of contents with a string as input.
 
@@ -47,7 +50,11 @@ def text_to_pdf(text:str,
     pathlib.Path, the path to the output PDF file.
     """
     output_dir = Path.cwd() if output_dir is None else Path(output_dir)
-    key_phrase = f"Confectionary text2pdf - {get_timestamp()}" if key_phrase is None else key_phrase
+    key_phrase = (
+        f"Confectionary text2pdf - {get_timestamp()}"
+        if key_phrase is None
+        else key_phrase
+    )
     pdf = PDF(
         orientation="P",
         unit="mm",
@@ -67,7 +74,7 @@ def text_to_pdf(text:str,
 
     pdf.write_big_title(title)
     pdf.generic_text(text)
-     # save the generated file
+    # save the generated file
     doc_margin_type = "ewriter" if create_ewriter_notes else "standard"
     pdf_name = f"{key_phrase}_txt2pdf_{get_timestamp()}_{doc_margin_type}.pdf"
     pdf.output(output_dir / pdf_name)
