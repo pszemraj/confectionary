@@ -17,7 +17,7 @@ from cleantext import clean
 from natsort import natsorted
 
 
-def get_seq2replace(additional_terms:list=None):
+def get_seq2replace(additional_terms: list = None):
     """
     get_seq2replace - returns a list of terms to be replaced from text. This is used to remove "filename" stopwords from the text.
 
@@ -46,6 +46,8 @@ def get_seq2replace(additional_terms:list=None):
     if additional_terms is not None:
         seq2replace.extend(additional_terms)
     return seq2replace
+
+
 def get_first_number(my_string: str):
     """
     get_first_number - return the first number found in a string with regex as an integer

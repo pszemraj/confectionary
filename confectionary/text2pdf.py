@@ -77,13 +77,16 @@ def text_to_pdf(
     pdf.generic_text(text)
     # save the generated file
     doc_margin_type = "ewriter" if create_ewriter_notes else "standard"
-    pdf_name = f"{key_phrase}_txt2pdf_{get_timestamp(detailed=True)}_{doc_margin_type}.pdf"
+    pdf_name = (
+        f"{key_phrase}_txt2pdf_{get_timestamp(detailed=True)}_{doc_margin_type}.pdf"
+    )
     pdf.output(output_dir / pdf_name)
 
     _out = output_dir / pdf_name
     if be_verbose:
         print(f"\nPDF file written to {_out}")
     return _out
+
 
 def file_to_pdf(
     filepath,
@@ -115,11 +118,7 @@ def file_to_pdf(
     """
     src_path = Path(filepath)
     output_dir = src_path.parent if output_dir is None else Path(output_dir)
-    key_phrase = (
-        f"{src_path.stem} - text2pdf"
-        if key_phrase is None
-        else key_phrase
-    )
+    key_phrase = f"{src_path.stem} - text2pdf" if key_phrase is None else key_phrase
     pdf = PDF(
         orientation="P",
         unit="mm",
@@ -139,7 +138,7 @@ def file_to_pdf(
         pdf.add_page()
         pdf.generic_text(intro_text)
     out_name = simple_rename(src_path, max_char_orig=75, no_ext=True).lower()
-    seq2replace = get_seq2replace() # define words to replace in the chapter names
+    seq2replace = get_seq2replace()  # define words to replace in the chapter names
 
     for ugly_w in seq2replace:
         out_name = out_name.replace(ugly_w, "")  # clean up filename
@@ -149,13 +148,16 @@ def file_to_pdf(
     pdf.print_chapter(filepath=str(src_path.resolve()), num=1, title=out_name)
     # save the generated file
     doc_margin_type = "ewriter" if create_ewriter_notes else "standard"
-    pdf_name = f"{key_phrase}_txt2pdf_{get_timestamp(detailed=True)}_{doc_margin_type}.pdf"
+    pdf_name = (
+        f"{key_phrase}_txt2pdf_{get_timestamp(detailed=True)}_{doc_margin_type}.pdf"
+    )
     pdf.output(output_dir / pdf_name)
 
     _out = output_dir / pdf_name
     if be_verbose:
         print(f"\nPDF file written to {_out}")
     return _out
+
 
 def dir_to_pdf(
     input_dir,
@@ -244,7 +246,7 @@ def dir_to_pdf(
     toc_pages = estimate_TOC_pages(len(approved_files), verbose=True)
     pdf.insert_toc_placeholder(render_toc, pages=toc_pages)
 
-    seq2replace = get_seq2replace() # define words to replace in the chapter names
+    seq2replace = get_seq2replace()  # define words to replace in the chapter names
 
     if be_verbose:
         print("\nPrinting Chapters to PDF")
