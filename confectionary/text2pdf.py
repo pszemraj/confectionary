@@ -22,6 +22,61 @@ from confectionary.utils import (
     simple_rename,
 )
 
+def text_to_pdf(text:str,
+                output_dir=None,
+    key_phrase: str = None,
+    create_ewriter_notes=False,
+    do_paragraph_splitting=True,
+    nltk_usepunkt=True,
+    be_verbose=False,):
+    """
+    text_to_pdf - the most basic version, creates a PDF with no table of contents with a string as input.
+
+    Parameters
+    ----------
+    text : str, required, the text to be converted to PDF
+    output_dir : str, optional, the directory to write the output PDF to. Defaults to None, which will write to the current working directory.
+    key_phrase : str, optional, the key phrase to be used to identify the file. Defaults to None, which will use the timestamp.
+    create_ewriter_notes : bool, optional, whether to create ewriter notes. Defaults to False.
+    do_paragraph_splitting : bool, optional, whether to split the text into paragraphs. Defaults to True.
+    nltk_usepunkt : bool, optional, whether to use nltk punkt tokenizer. Defaults to True.
+    be_verbose : bool, optional, whether to print verbose output. Defaults to False.
+
+    Returns
+    -------
+    pathlib.Path, the path to the output PDF file.
+    """
+    output_dir = Path.cwd() if output_dir is None else Path(output_dir)
+    key_phrase = f"Confectionary text2pdf - {get_timestamp()}" if key_phrase is None else key_phrase
+    pdf = PDF(
+        orientation="P",
+        unit="mm",
+        format="A4",
+        is_ewriter=create_ewriter_notes,
+        key_phrase=key_phrase,
+        split_paragraphs=do_paragraph_splitting,
+    )
+    title = f"{key_phrase}"
+    pdf.set_title(title)
+    pdf.set_author(os.getlogin())
+
+    pdf.update_margins()  # update formatting
+    pdf.update_title_formats()
+
+    pdf.add_page()
+
+    pdf.write_big_title(title)
+    pdf.generic_text(text)
+     # save the generated file
+    doc_margin_type = "ewriter" if create_ewriter_notes else "standard"
+    pdf_name = f"{key_phrase}_txt2pdf_{get_timestamp()}_{doc_margin_type}.pdf"
+    pdf.output(output_dir / pdf_name)
+
+    _out = output_dir / pdf_name
+    if be_verbose:
+        print(f"\nPDF file written to {_out}")
+    return _out
+
 
 def dir_to_pdf(
     input_dir,
