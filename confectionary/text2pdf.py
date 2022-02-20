@@ -76,7 +76,7 @@ def text_to_pdf(
     pdf.generic_text(text)
     # save the generated file
     doc_margin_type = "ewriter" if create_ewriter_notes else "standard"
-    pdf_name = f"{key_phrase}_txt2pdf_{get_timestamp()}_{doc_margin_type}.pdf"
+    pdf_name = f"{key_phrase}_txt2pdf_{get_timestamp(detailed=True)}_{doc_margin_type}.pdf"
     pdf.output(output_dir / pdf_name)
 
     _out = output_dir / pdf_name
