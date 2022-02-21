@@ -24,7 +24,7 @@ from confectionary.utils import (
 )
 
 
-def text_to_pdf(
+def str_to_pdf(
     text: str,
     output_dir=None,
     key_phrase: str = None,
@@ -34,7 +34,7 @@ def text_to_pdf(
     be_verbose=False,
 ):
     """
-    text_to_pdf - the most basic version, creates a PDF with no table of contents with a string as input.
+    str_to_pdf - the most basic version, creates a PDF with no table of contents with a string as input.
 
     Parameters
     ----------
