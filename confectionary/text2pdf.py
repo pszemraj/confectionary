@@ -17,10 +17,140 @@ from confectionary.pdf import PDF
 from confectionary.report_generation import estimate_TOC_pages, render_toc
 from confectionary.utils import (
     cleantxt_wrap,
+    get_seq2replace,
     get_timestamp,
     load_files_ext,
     simple_rename,
 )
+
+
+def str_to_pdf(
+    text: str,
+    output_dir=None,
+    key_phrase: str = None,
+    create_ewriter_notes=False,
+    do_paragraph_splitting=True,
+    nltk_usepunkt=True,
+    be_verbose=False,
+):
+    """
+    str_to_pdf - the most basic version, creates a PDF with no table of contents with a string as input.
+
+    Parameters
+    ----------
+    text : str, required, the text to be converted to PDF
+    output_dir : str, optional, the directory to write the output PDF to. Defaults to None, which will write to the current working directory.
+    key_phrase : str, optional, the key phrase to be used to identify the file. Defaults to None, which will use the timestamp.
+    create_ewriter_notes : bool, optional, whether to create ewriter notes. Defaults to False.
+    do_paragraph_splitting : bool, optional, whether to split the text into paragraphs. Defaults to True.
+    nltk_usepunkt : bool, optional, whether to use nltk punkt tokenizer. Defaults to True.
+    be_verbose : bool, optional, whether to print verbose output. Defaults to False.
+
+    Returns
+    -------
+    pathlib.Path, the path to the output PDF file.
+    """
+    output_dir = Path.cwd() if output_dir is None else Path(output_dir)
+    key_phrase = (
+        f"Confectionary text2pdf - {get_timestamp()}"
+        if key_phrase is None
+        else key_phrase
+    )
+    pdf = PDF(
+        orientation="P",
+        unit="mm",
+        format="A4",
+        is_ewriter=create_ewriter_notes,
+        key_phrase=key_phrase,
+        split_paragraphs=do_paragraph_splitting,
+    )
+    title = f"{key_phrase}"
+    pdf.set_title(title)
+    pdf.set_author(os.getlogin())
+
+    pdf.update_margins()  # update formatting
+    pdf.update_title_formats()
+
+    pdf.add_page()
+
+    pdf.write_big_title(title)
+    pdf.generic_text(text)
+    # save the generated file
+    doc_margin_type = "ewriter" if create_ewriter_notes else "standard"
+    pdf_name = (
+        f"{key_phrase}_txt2pdf_{get_timestamp(detailed=True)}_{doc_margin_type}.pdf"
+    )
+    pdf.output(output_dir / pdf_name)
+
+    _out = output_dir / pdf_name
+    if be_verbose:
+        print(f"\nPDF file written to {_out}")
+    return _out
+
+
+def file_to_pdf(
+    filepath,
+    output_dir=None,
+    key_phrase: str = None,
+    intro_text: str = None,
+    create_ewriter_notes=False,
+    do_paragraph_splitting=True,
+    nltk_usepunkt=True,
+    be_verbose=False,
+):
+    """
+    file_to_pdf - create a pdf from a single text file.
+
+    Parameters
+    ----------
+    filepath : str, required, the path to the file to be converted to PDF.
+    output_dir : str, optional, the directory to write the output PDF to. Defaults to None, which will write to the current working directory.
+    key_phrase : str, optional, the key phrase to be used to identify the file. Defaults to None, which will use the filename.
+    intro_text : str, optional, the text to be added to the beginning of the file. Defaults to None, which will not add any text.
+    create_ewriter_notes : bool, optional, whether to create ewriter notes. Defaults to False.
+    do_paragraph_splitting : bool, optional, whether to split the text into paragraphs. Defaults to True.
+    nltk_usepunkt : bool, optional, whether to use nltk punkt tokenizer. Defaults to True.
+    be_verbose : bool, optional, whether to print verbose output. Defaults to False.
+
+    Returns
+    -------
+    pathlib.Path, the path to the output PDF file.
+    """
+    src_path = Path(filepath)
+    output_dir = src_path.parent if output_dir is None else Path(output_dir)
+    key_phrase = f"{src_path.stem} - text2pdf" if key_phrase is None else key_phrase
+    pdf = PDF(
+        orientation="P",
+        unit="mm",
+        format="A4",
+        is_ewriter=create_ewriter_notes,
+        key_phrase=key_phrase,
+        split_paragraphs=do_paragraph_splitting,
+    )
+    title = f"{key_phrase}"
+    pdf.set_title(title)
+    pdf.set_author(os.getlogin())
+
+    pdf.update_margins()  # update formatting
+    pdf.update_title_formats()
+
+    if intro_text is not None:
+        pdf.add_page()
+        pdf.comment_text(intro_text, preamble="")
+    if be_verbose:
+        print(f"attempting to print {src_path.name}")
+    pdf.print_chapter(filepath=str(src_path.resolve()), num=1, title=key_phrase)
+    # save the generated file
+    doc_margin_type = "ewriter" if create_ewriter_notes else "standard"
+    pdf_name = (
+        f"{key_phrase}_txt2pdf_{get_timestamp(detailed=True)}_{doc_margin_type}.pdf"
+    )
+    pdf.output(output_dir / pdf_name)
+
+    _out = output_dir / pdf_name
+    if be_verbose:
+        print(f"\nPDF file written to {_out}")
+    return _out
 
 
 def dir_to_pdf(
@@ -110,21 +240,7 @@ def dir_to_pdf(
     toc_pages = estimate_TOC_pages(len(approved_files), verbose=True)
     pdf.insert_toc_placeholder(render_toc, pages=toc_pages)
 
-    # define words to replace in the chapter names
-    seq2replace = [
-        "fins",
-        "phones",
-        "cons",
-        "fin",
-        "pegasus",
-        "phone",
-        "con",
-        "-v-",
-        "---",
-        "summ",
-        "sum",
-        "ocr",
-    ]
+    seq2replace = get_seq2replace()  # define words to replace in the chapter names
 
     if be_verbose:
         print("\nPrinting Chapters to PDF")
