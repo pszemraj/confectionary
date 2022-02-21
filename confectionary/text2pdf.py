@@ -99,7 +99,7 @@ def file_to_pdf(
     be_verbose=False,
 ):
     """
-    file_to_pdf - create a pdf from a single text or text-like file.
+    file_to_pdf - create a pdf from a single text file.
 
     Parameters
     ----------
@@ -136,16 +136,10 @@ def file_to_pdf(
 
     if intro_text is not None:
         pdf.add_page()
-        pdf.generic_text(intro_text)
-    out_name = simple_rename(src_path, max_char_orig=75, no_ext=True).lower()
-    seq2replace = get_seq2replace()  # define words to replace in the chapter names
-
-    for ugly_w in seq2replace:
-        out_name = out_name.replace(ugly_w, "")  # clean up filename
-    out_name = out_name[0].upper() + out_name[1:]  # capitalize first letter
+        pdf.comment_text(intro_text, preamble="")
     if be_verbose:
-        print(f"attempting to print {out_name}")
-    pdf.print_chapter(filepath=str(src_path.resolve()), num=1, title=out_name)
+        print(f"attempting to print {src_path.name}")
+    pdf.print_chapter(filepath=str(src_path.resolve()), num=1, title=key_phrase)
     # save the generated file
     doc_margin_type = "ewriter" if create_ewriter_notes else "standard"
     pdf_name = (
