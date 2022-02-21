@@ -61,7 +61,7 @@ This will create one pdf from all txt files in the input directory and save it t
   - `file_to_pdf` takes a file path and creates a pdf from the file.
   - `str_to_pdf` takes a string and creates a pdf from the string.
 
-Details on the inputs etc can be found in the function docstrings in each. To replicate the above command line example, run:
+Details on the function arguments can be found in the relevant function docstrings (or call `help()`). To replicate the above command line example, run:
 
 - `python`
 - `import confectionary`
