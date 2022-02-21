@@ -1,8 +1,8 @@
 # PDF Confectionary :cupcake:
 
-> Do you work in the NLP domain and find that your end users/clients are not thrilled by receiving a ton of .txt files with your amazing results? Look no further, you are at the right place!
+> Do you work in the NLP domain and find that your end users/clients are not thrilled by receiving a ton of .txt files with your amazing results? Look no further; you are at the right place!
 
-PDF Confectionary is a tool for quickly creating templated PDFs from text files using [FPDF2](https://pyfpdf.github.io/fpdf2/index.html). Go create some *sweet* PDFs.
+PDF Confectionary is a tool for quickly creating templated PDFs from text files using [FPDF2](https://pyfpdf.github.io/fpdf2/index.html). Create some *sweet* PDFs.
 
 ## About
 
@@ -12,7 +12,7 @@ The primary focus of this repo is to provide a simple, easy to use, and extensib
 - TOC generation & links to TOC entries on each page (click on footer)
 - Keyword extraction for each txt file
 
-PDF Confectionary was originally designed to be used as a command line tool, but it can also be used as an installable Python module.
+PDF Confectionary was initially designed as a command-line tool, but it can also be used as an installable Python module.
 
 ---
 
@@ -32,7 +32,7 @@ The package can be installed using pip:
 To install as a python package without pip, run:
 
 1. `git clone <https://github.com/pszemraj/confectionary.git>`
-2. `pip install -r requirements.txt`
+2. `cd confectionary`
 3. `pip install .`
 
 ## Usage
@@ -56,11 +56,18 @@ This will create one pdf from all txt files in the input directory and save it t
 
 ### Basic Usage within Python
 
+- three basic functions are available in `confectionary.text2pdf`: `dir_to_pdf`, `file_to_pdf`, and `str_to_pdf`:
+  - `dir_to_pdf` takes a directory path and creates a pdf from all txt files in the directory.
+  - `file_to_pdf` takes a file path and creates a pdf from the file.
+  - `str_to_pdf` takes a string and creates a pdf from the string.
+
+Details on the inputs etc can be found in the function docstrings in each. To replicate the above command line example, run:
+
 - `python`
 - `import confectionary`
 - `confectionary.text2pdf.dir_to_pdf("./example/text-files", "./example/outputs", key_phrase="test")`
 
-Resulting output is in `example\outputs`:
+The resulting output is in `example\outputs`:
 
 ```
 3 files found matching extension .txt
@@ -78,17 +85,17 @@ PDF file saved to C:\Users\peter\code-dev-22\misc-repos\text2pdf\example\outputs
 
 ### Note
 
-- The word2vec model is quite big, 3.7GB. It will be downloaded if it doesn't exist, and the model will be saved to the `./models` directory.
-- The word2vec mode is not required for the text2pdf tool, and can be disabled by setting the `do_paragraph_splitting` parameter to `False` or in command line mode, by adding the `--no-split` switch.
+- The word2vec model is quite big, 3.7GB. If it doesn't exist, it will be downloaded, and the model will be saved to the `./models` directory.
+- The word2vec model is not required for the text2pdf tool and can be disabled by setting the `do_paragraph_splitting` parameter to `False` or in command line mode, by adding the `--no-split` switch.
 
 ---
 
 ## TODO list
 
 - [x] convert the text2pdf.py script to a module/function
-- [x] publish to PyPI *IN-PROGRESS*
-- [ ] improve TOC calculation beyond a simple title threshold
+- [x] publish to PyPI
 - [ ] add alternate, smaller, word2vec models for splitting paragraphs
+- [ ] improve TOC calculation beyond a simple title threshold
 - [ ] Add a basic notebook demo
 
 ---
