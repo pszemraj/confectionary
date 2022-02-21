@@ -41,7 +41,7 @@ There are two ways to use PDF Confectionary:
 
 1. command line, via `python confectionary/text2pdf.py`
 
-2. as a python module, via the `dir_to_pdf` function.
+2. as a python module, via the functions located in the `confectionary.text2pdf` module. The `dir_to_pdf` function provides analogous functionality to the above command line tool.
 
 This will create one pdf from all txt files in the input directory and save it to the output directory. Add the `-r` switch (or `recurse=True` in function) to load files recursively.
 
