@@ -3,6 +3,7 @@ This module contains the class PDF. It is used to generate a PDF report from a l
 """
 import math
 import urllib
+from cleantext import clean
 
 import pandas as pd
 from fpdf import FPDF, TitleStyle
@@ -207,7 +208,7 @@ class PDF(FPDF):
         self.start_section(total_title)
         self.ln(4)
 
-    def chapter_body_filepath(self, filepath, verbose=False, std_font=14):
+    def chapter_body_filepath(self, filepath, collapse_source_newlines=True, verbose=False, std_font=14):
         """
         chapter_body_filepath - read in a file and add to the PDF as a chapter
 
@@ -219,7 +220,11 @@ class PDF(FPDF):
         """
 
         with open(filepath, "r", encoding="UTF-8", errors="ignore") as f:
-            text = f.read()  # Read text file
+            text = clean(f.read(), lower=False)  # Read text file
+        # strip newlines
+        if verbose:
+            print(f"Stripping newlines from {filepath} is set to {collapse_source_newlines}")
+        text = " ".join(text.splitlines()) if collapse_source_newlines else text
         text = fix_punct_spaces(text)
         # Times for reading
         self.set_font("Times", "", std_font)
