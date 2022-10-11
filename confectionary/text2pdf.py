@@ -21,6 +21,7 @@ from confectionary.utils import (
     get_timestamp,
     load_files_ext,
     simple_rename,
+    get_user,
 )
 
 
@@ -66,7 +67,7 @@ def str_to_pdf(
     )
     title = f"{key_phrase}"
     pdf.set_title(title)
-    pdf.set_author(os.getlogin())
+    pdf.set_author(get_user())
 
     pdf.update_margins()  # update formatting
     pdf.update_title_formats()
@@ -129,7 +130,7 @@ def file_to_pdf(
     )
     title = f"{key_phrase}"
     pdf.set_title(title)
-    pdf.set_author(os.getlogin())
+    pdf.set_author(get_user())
 
     pdf.update_margins()  # update formatting
     pdf.update_title_formats()
@@ -214,7 +215,7 @@ def dir_to_pdf(
     )
     title = f"{key_phrase}"
     pdf.set_title(title)
-    pdf.set_author(os.getlogin())
+    pdf.set_author(get_user())
 
     pdf.update_margins()  # update formatting
     pdf.update_title_formats()

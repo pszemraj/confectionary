@@ -16,6 +16,12 @@ import yake
 from cleantext import clean
 from natsort import natsorted
 
+def get_user():
+    """ get_user - returns the username of the user running the script """
+    try:
+        return os.getlogin()
+    except Exception:
+        return "unknown"
 
 def get_seq2replace(additional_terms: list = None):
     """
