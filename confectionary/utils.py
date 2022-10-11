@@ -17,6 +17,14 @@ from cleantext import clean
 from natsort import natsorted
 
 
+def get_user():
+    """get_user - returns the username of the user running the script"""
+    try:
+        return os.getlogin()
+    except Exception:
+        return "unknown"
+
+
 def get_seq2replace(additional_terms: list = None):
     """
     get_seq2replace - returns a list of terms to be replaced from text. This is used to remove "filename" stopwords from the text.
@@ -65,7 +73,7 @@ def get_first_number(my_string: str):
         warnings.warn(
             "No number found in string: {}, returning random".format(my_string)
         )
-        return random.randint(0, 10**8)
+        return random.randint(0, 10 ** 8)
     else:
         return int(search.group(0))
 
