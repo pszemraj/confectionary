@@ -208,7 +208,9 @@ class PDF(FPDF):
         self.start_section(total_title)
         self.ln(4)
 
-    def chapter_body_filepath(self, filepath, collapse_source_newlines=True, verbose=False, std_font=14):
+    def chapter_body_filepath(
+        self, filepath, collapse_source_newlines=True, verbose=False, std_font=14
+    ):
         """
         chapter_body_filepath - read in a file and add to the PDF as a chapter
 
@@ -223,7 +225,9 @@ class PDF(FPDF):
             text = clean(f.read(), lower=False)  # Read text file
         # strip newlines
         if verbose:
-            print(f"Stripping newlines from {filepath} is set to {collapse_source_newlines}")
+            print(
+                f"Stripping newlines from {filepath} is set to {collapse_source_newlines}"
+            )
         text = " ".join(text.splitlines()) if collapse_source_newlines else text
         text = fix_punct_spaces(text)
         # Times for reading
