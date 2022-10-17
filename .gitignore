@@ -2,6 +2,7 @@
 *__pycache__*
 # downloaded word2vec models
 *models/
+*models*
 # generated pdfs
 *pdf*/
 
@@ -13,5 +14,7 @@
 scratch
 
 # package
+*.eggs/
 *.egg-info
 build
+*confectionary.egg-info/
