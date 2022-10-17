@@ -181,12 +181,16 @@ class PDF(FPDF):
             ),
         )
 
-    def init_word2vec(self):
+    def init_word2vec(self, word2vec_model = "word2vec-google-news-300"):
         """
         init_word2vec - initialize the word2vec model
+
+        Parameters
+        ----------
+        word2vec_model : str, optional, default "word2vec-google-news-300", the word2vec model to use. loaded from gensim API.
         """
         if self.split_paragraphs and not self.initialized_word2vec:
-            gensim_model = load_word2vec_model()
+            gensim_model = load_word2vec_model(word2vec_model = word2vec_model)
             self.wrdvecs = pd.DataFrame(
                 gensim_model.vectors, index=gensim_model.key_to_index
             )
@@ -209,7 +213,7 @@ class PDF(FPDF):
         self.ln(4)
 
     def chapter_body_filepath(
-        self, filepath, collapse_source_newlines=True, verbose=False, std_font=14
+        self, filepath, collapse_source_newlines=True, verbose=False, std_font=14,
     ):
         """
         chapter_body_filepath - read in a file and add to the PDF as a chapter

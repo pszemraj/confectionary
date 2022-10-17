@@ -18,27 +18,30 @@ model_storage_loc.mkdir(exist_ok=True)
 
 
 def load_word2vec_model(
-    word2vec_mname="word2vec-google-news-300",
+    word2vec_model="word2vec-google-news-300",
     storage_loc=model_storage_loc,
     verbose=False,
 ):
     """
-    Loads a word2vec model from the Google News corpus.
+    Loads a word2vec model through the gensim.data api.
+
+        See this repo for more details: https://github.com/RaRe-Technologies/gensim-data
+
     :param model_name: Name of the model to load.
-    :return: Word2Vec model.
+    :return: Word2Vec model, a gensim.models.keyedvectors.Word2VecKeyedVectors object
     """
     storage_loc = Path(storage_loc)
     storage_loc.mkdir(exist_ok=True)
 
     # check if an existing .pkl file exists with the same name, otherwise load it
-    if (storage_loc / (word2vec_mname + ".pkl")).exists():
+    if (storage_loc / (word2vec_model + ".pkl")).exists():
         if verbose:
-            print("Loading existing word2vec model from {}".format(word2vec_mname))
-        model = pickle.load(open(storage_loc / (word2vec_mname + ".pkl"), "rb"))
+            print("Loading existing word2vec model from {}".format(word2vec_model))
+        model = pickle.load(open(storage_loc / (word2vec_model + ".pkl"), "rb"))
     else:
         print("Download word2vec model - Google News corpus via gensim")
-        model = api.load(word2vec_mname)
-        pickle.dump(model, open(storage_loc / (word2vec_mname + ".pkl"), "wb"))
+        model = api.load(word2vec_model)
+        pickle.dump(model, open(storage_loc / (word2vec_model + ".pkl"), "wb"))
     return model
 
 
