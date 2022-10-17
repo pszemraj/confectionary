@@ -18,7 +18,7 @@ model_storage_loc.mkdir(exist_ok=True)
 
 
 def load_word2vec_model(
-    word2vec_model="word2vec-google-news-300",
+    word2vec_model:str="word2vec-google-news-300",
     storage_loc=model_storage_loc,
     verbose=False,
 ):
@@ -39,7 +39,7 @@ def load_word2vec_model(
             print("Loading existing word2vec model from {}".format(word2vec_model))
         model = pickle.load(open(storage_loc / (word2vec_model + ".pkl"), "rb"))
     else:
-        print("Download word2vec model - Google News corpus via gensim")
+        print(f"Downloading {word2vec_model} from gensim-data API")
         model = api.load(word2vec_model)
         pickle.dump(model, open(storage_loc / (word2vec_model + ".pkl"), "wb"))
     return model

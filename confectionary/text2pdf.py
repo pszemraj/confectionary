@@ -30,8 +30,9 @@ def str_to_pdf(
     output_dir=None,
     key_phrase: str = None,
     create_ewriter_notes=False,
-    do_paragraph_splitting=True,
     nltk_usepunkt=True,
+    do_paragraph_splitting=True,
+    word2vec_model = "word2vec-google-news-300",
     be_verbose=False,
 ):
     """
@@ -43,8 +44,9 @@ def str_to_pdf(
     output_dir : str, optional, the directory to write the output PDF to. Defaults to None, which will write to the current working directory.
     key_phrase : str, optional, the key phrase to be used to identify the file. Defaults to None, which will use the timestamp.
     create_ewriter_notes : bool, optional, whether to create ewriter notes. Defaults to False.
-    do_paragraph_splitting : bool, optional, whether to split the text into paragraphs. Defaults to True.
     nltk_usepunkt : bool, optional, whether to use nltk punkt tokenizer. Defaults to True.
+    do_paragraph_splitting : bool, optional, whether to split the text into paragraphs. Defaults to True.
+    word2vec_model : str, optional, the word2vec model to use. Defaults to "word2vec-google-news-300".
     be_verbose : bool, optional, whether to print verbose output. Defaults to False.
 
     Returns
@@ -75,8 +77,8 @@ def str_to_pdf(
     pdf.add_page()
 
     pdf.write_big_title(title)
-    pdf.generic_text(text)
-    # save the generated file
+    pdf.generic_text(text, split_paragraphs=do_paragraph_splitting, word2vec_model=word2vec_model, nltk_usepunkt=nltk_usepunkt)
+
     doc_margin_type = "ewriter" if create_ewriter_notes else "standard"
     pdf_name = (
         f"{key_phrase}_txt2pdf_{get_timestamp(detailed=True)}_{doc_margin_type}.pdf"
@@ -95,8 +97,9 @@ def file_to_pdf(
     key_phrase: str = None,
     intro_text: str = None,
     create_ewriter_notes=False,
-    do_paragraph_splitting=True,
     nltk_usepunkt=True,
+    do_paragraph_splitting=True,
+    word2vec_model = "word2vec-google-news-300",
     be_verbose=False,
 ):
     """
@@ -109,8 +112,9 @@ def file_to_pdf(
     key_phrase : str, optional, the key phrase to be used to identify the file. Defaults to None, which will use the filename.
     intro_text : str, optional, the text to be added to the beginning of the file. Defaults to None, which will not add any text.
     create_ewriter_notes : bool, optional, whether to create ewriter notes. Defaults to False.
-    do_paragraph_splitting : bool, optional, whether to split the text into paragraphs. Defaults to True.
     nltk_usepunkt : bool, optional, whether to use nltk punkt tokenizer. Defaults to True.
+    do_paragraph_splitting : bool, optional, whether to split the text into paragraphs. Defaults to True.
+    word2vec_model : str, optional, the word2vec model to use. Defaults to "word2vec-google-news-300".
     be_verbose : bool, optional, whether to print verbose output. Defaults to False.
 
     Returns
@@ -140,7 +144,7 @@ def file_to_pdf(
         pdf.comment_text(intro_text, preamble="")
     if be_verbose:
         print(f"attempting to print {src_path.name}")
-    pdf.print_chapter(filepath=str(src_path.resolve()), num=1, title=key_phrase)
+    pdf.print_chapter(filepath=str(src_path.resolve()), num=1, title=key_phrase, word2vec_model = word2vec_model)
     # save the generated file
     doc_margin_type = "ewriter" if create_ewriter_notes else "standard"
     pdf_name = (
@@ -158,14 +162,15 @@ def dir_to_pdf(
     input_dir,
     output_dir=None,
     extension: str = ".txt",
+    recurse=False,
     key_phrase: str = None,
     intro_text: str = None,
     toc_comments: str = None,
     create_ewriter_notes=False,
-    do_paragraph_splitting=True,
     nltk_usepunkt=True,
+    do_paragraph_splitting=True,
+    word2vec_model = "word2vec-google-news-300",
     be_verbose=False,
-    recurse=False,
 ):
     """
     dir_to_pdf - converts all files in a directory 'input_dir' with extension 'extension' to a single pdf.
@@ -175,14 +180,15 @@ def dir_to_pdf(
     input_dir : str or pathlib.Path, the path to the directory containing the files to convert
     output_dir : str or pathlib.Path, optional, the path to the directory to write the output files to. Defaults to input_dir
     extension : str, optional, the extension of the files to convert. Defaults to '.txt'
+    recurse : bool, optional, whether to load files recursively from the input directory. Defaults to False
     key_phrase : str, optional, the key phrase to identify the conversion instance. Defaults to None
     intro_text : str, optional, the text to be written at the top of the output file. Defaults to None
     toc_comments : str, optional, the text to be written at the bottom of the output file. Defaults to None
     create_ewriter_notes : bool, optional, whether to write the output to ewriter format (narrow text width). Defaults to False
-    do_paragraph_splitting : bool, optional, whether to split the text into paragraphs. Defaults to True
     nltk_usepunkt : bool, optional, whether to use nltk punkt tokenizer. Defaults to True
+    do_paragraph_splitting : bool, optional, whether to split the text into paragraphs. Defaults to True
+    word2vec_model : str, optional, the word2vec model to use. Defaults to "word2vec-google-news-300".
     be_verbose : bool, optional, whether to print verbose output. Defaults to False
-    recurse : bool, optional, whether to load files recursively from the input directory. Defaults to False
 
     Returns
     -------
@@ -253,8 +259,8 @@ def dir_to_pdf(
         out_name = out_name[0].upper() + out_name[1:]  # capitalize first letter
         if be_verbose:
             print(f"attempting chapter {i} - filename: {out_name}")
-        pdf.print_chapter(filepath=str(textfile.resolve()), num=i, title=out_name)
-        pbar.update(1)
+        pdf.print_chapter(filepath=str(textfile.resolve()), num=i, title=out_name, word2vec_model=word2vec_model)
+        pbar.update()
     pbar.close()
 
     if be_verbose:
@@ -315,6 +321,14 @@ def get_parser():
         help="if set, will not split the text into paragraphs (faster)",
     )
     parser.add_argument(
+        "-m",
+        "--model",
+        required=False,
+        default="word2vec-google-news-300",
+        type=str,
+        help="the word2vec model to use",
+    )
+    parser.add_argument(
         "--no-punkt",
         required=False,
         default=False,
@@ -349,6 +363,7 @@ if __name__ == "__main__":
     key_phrase = args.keywords
     create_ewriter_notes = args.ewriter_notes
     do_paragraph_splitting = not args.no_split
+    word2vec_model = args.model
     nltk_usepunkt = not args.no_punkt
     be_verbose = args.verbose
     recurse = args.recursive
@@ -358,6 +373,7 @@ if __name__ == "__main__":
         key_phrase=key_phrase,
         create_ewriter_notes=create_ewriter_notes,
         do_paragraph_splitting=do_paragraph_splitting,
+        word2vec_model=word2vec_model,
         nltk_usepunkt=nltk_usepunkt,
         be_verbose=be_verbose,
         recurse=recurse,

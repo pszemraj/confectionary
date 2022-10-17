@@ -213,7 +213,7 @@ class PDF(FPDF):
         self.ln(4)
 
     def chapter_body_filepath(
-        self, filepath, collapse_source_newlines=True, verbose=False, std_font=14,
+        self, filepath, collapse_source_newlines=True, verbose=False, std_font=14, word2vec_model = "word2vec-google-news-300"
     ):
         """
         chapter_body_filepath - read in a file and add to the PDF as a chapter
@@ -242,7 +242,7 @@ class PDF(FPDF):
         enc_line = text.encode("latin-1", errors="replace")
         decoded_line = enc_line.decode("latin-1")
         if self.split_paragraphs:
-            self.init_word2vec()
+            self.init_word2vec(word2vec_model = word2vec_model)
             paragraph_list = split_to_pars(
                 decoded_line, wordvectors=self.wrdvecs, use_punkt=True
             )
@@ -264,7 +264,7 @@ class PDF(FPDF):
         self.set_font("", "I")
         self.cell(0, th, "(end of excerpt)")
 
-    def chapter_body_fromURL(self, aURL):
+    def chapter_body_fromURL(self, aURL:str, word2vec_model = "word2vec-google-news-300"):
         """
         chapter_body_fromURL - read in a URL and add to the PDF as a chapter
 
@@ -283,12 +283,12 @@ class PDF(FPDF):
             enc_line = URL_line.encode("latin-1", errors="replace")
             decoded_line = enc_line.decode("latin-1")
         if self.split_paragraphs:
-            self.init_word2vec()
+            self.init_word2vec(word2vec_model = word2vec_model)
             paragraph_list = split_to_pars(
                 decoded_line, wordvectors=self.wrdvecs, use_punkt=True
             )
             for par in paragraph_list:
-                formatted_par = " " * 8 + par
+                formatted_par = " " * 8 + par.strip()
                 self.multi_cell(w=0, h=th, txt=formatted_par, border=0)
                 self.ln()
         else:
@@ -301,19 +301,22 @@ class PDF(FPDF):
         self.set_font("", "I")
         self.cell(0, 5, "(end of excerpt)")
 
-    def print_chapter(self, filepath, num: int, title: str = ""):
+    def print_chapter(self, filepath, num: int, title: str = "", word2vec_model = "word2vec-google-news-300"):
         """
         print_chapter is a wrapper for chapter_body that takes a filepath, title, and number, and prints the chapter
 
-        :param fname: filepath to text file
+        :param fname: filepath to text file to be added to the PDF
         :param num: chapter number
-        :param title: chapter title
+        :param title: chapter title, optional, default ""
+        :param word2vec_model: word2vec model to use, default is "word2vec-google-news-300"
+
+        :return: None
         """
         self.add_page()
         self.chapter_title(num, title)
-        self.chapter_body_filepath(filepath)
+        self.chapter_body_filepath(filepath, word2vec_model = word2vec_model)
 
-    def print_chapter_URL(self, theURL, num: int, title: str = ""):
+    def print_chapter_URL(self, theURL, num: int, title: str = "", word2vec_model = "word2vec-google-news-300"):
         """
         print_chapter_URL is a wrapper for chapter_body that takes a URL, title, and number, and prints the chapter from the URL
 
@@ -322,10 +325,11 @@ class PDF(FPDF):
         theURL : str, URL
         num : int, chapter number, starting at 1
         title : str, optional, title of chapter
+        word2vec_model : str, optional, word2vec model to use, by default "word2vec-google-news-300"
         """
         self.add_page()
         self.chapter_title(num, title)
-        self.chapter_body_fromURL(theURL)
+        self.chapter_body_fromURL(theURL, word2vec_model = word2vec_model)
 
     def figure_title(self, title: str):
         """
@@ -352,19 +356,30 @@ class PDF(FPDF):
         self.multi_cell(w=0, h=th, txt=a_title, border="B", ln=1, align="C", fill=False)
         self.ln()
 
-    def generic_text(self, the_text: str, the_size: int = 12):
+    def generic_text(self, the_text: str, the_size: int = 12, split_paragraphs: bool = False, word2vec_model = "word2vec-google-news-300", use_punkt: bool = True):
         """
-        generic_text is a wrapper for multi_cell that takes a string and font size, and prints it in the current page
+        generic_text - write a generic text to the PDF
 
         Parameters
         ----------
-        the_text : str, required, the text to be printed
-        the_size : int, optional, the font size to be used, default is 12
-        """
-        self.set_font("Times", "", int(the_size))
+        the_text : str, the text to be written
+        the_size : int, optional, by default 12, the font size to be used
+        split_paragraphs : bool, optional, by default True, split the text into paragraphs
+        word2vec_model : str, optional, by default "word2vec-google-news-300", the word2vec model to be used
+        use_punkt : bool, optional, by default True, use the Punkt sentence tokenizer
 
-        # Text height
+        """
+        self.set_font("Times", "", the_size)
         th = self.font_size
+        if self.split_paragraphs or split_paragraphs:
+            self.init_word2vec(word2vec_model = word2vec_model)
+            paragraph_list = split_to_pars(
+                the_text, wordvectors=self.wrdvecs, use_punkt=use_punkt
+            )
+            for par in paragraph_list:
+                formatted_par = " " * 8 + par.strip()
+                self.multi_cell(w=0, h=th, txt=formatted_par, border=0)
+                self.ln()
         self.multi_cell(w=0, h=th, txt=the_text, ln=1, align="L")
 
     def comment_text(
