@@ -31,7 +31,7 @@ def print_api_info(verbose=False):
         pp.pprint(labels)
 
 def load_word2vec_model(
-    word2vec_model:str="word2vec-google-news-300",
+    word2vec_model:str="glove-wiki-gigaword-100",
     storage_loc=model_storage_loc,
     verbose=False,
 ):

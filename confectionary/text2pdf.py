@@ -32,7 +32,7 @@ def str_to_pdf(
     create_ewriter_notes=False,
     nltk_usepunkt=True,
     do_paragraph_splitting=True,
-    word2vec_model = "word2vec-google-news-300",
+    word2vec_model = "glove-wiki-gigaword-100",
     be_verbose=False,
 ):
     """
@@ -46,7 +46,7 @@ def str_to_pdf(
     create_ewriter_notes : bool, optional, whether to create ewriter notes. Defaults to False.
     nltk_usepunkt : bool, optional, whether to use nltk punkt tokenizer. Defaults to True.
     do_paragraph_splitting : bool, optional, whether to split the text into paragraphs. Defaults to True.
-    word2vec_model : str, optional, the word2vec model to use. Defaults to "word2vec-google-news-300".
+    word2vec_model : str, optional, the word2vec model to use. Defaults to "glove-wiki-gigaword-100".
     be_verbose : bool, optional, whether to print verbose output. Defaults to False.
 
     Returns
@@ -99,7 +99,7 @@ def file_to_pdf(
     create_ewriter_notes=False,
     nltk_usepunkt=True,
     do_paragraph_splitting=True,
-    word2vec_model = "word2vec-google-news-300",
+    word2vec_model = "glove-wiki-gigaword-100",
     be_verbose=False,
 ):
     """
@@ -114,7 +114,7 @@ def file_to_pdf(
     create_ewriter_notes : bool, optional, whether to create ewriter notes. Defaults to False.
     nltk_usepunkt : bool, optional, whether to use nltk punkt tokenizer. Defaults to True.
     do_paragraph_splitting : bool, optional, whether to split the text into paragraphs. Defaults to True.
-    word2vec_model : str, optional, the word2vec model to use. Defaults to "word2vec-google-news-300".
+    word2vec_model : str, optional, the word2vec model to use. Defaults to "glove-wiki-gigaword-100".
     be_verbose : bool, optional, whether to print verbose output. Defaults to False.
 
     Returns
@@ -169,7 +169,7 @@ def dir_to_pdf(
     create_ewriter_notes=False,
     nltk_usepunkt=True,
     do_paragraph_splitting=True,
-    word2vec_model = "word2vec-google-news-300",
+    word2vec_model = "glove-wiki-gigaword-100",
     be_verbose=False,
 ):
     """
@@ -187,7 +187,7 @@ def dir_to_pdf(
     create_ewriter_notes : bool, optional, whether to write the output to ewriter format (narrow text width). Defaults to False
     nltk_usepunkt : bool, optional, whether to use nltk punkt tokenizer. Defaults to True
     do_paragraph_splitting : bool, optional, whether to split the text into paragraphs. Defaults to True
-    word2vec_model : str, optional, the word2vec model to use. Defaults to "word2vec-google-news-300".
+    word2vec_model : str, optional, the word2vec model to use. Defaults to "glove-wiki-gigaword-100".
     be_verbose : bool, optional, whether to print verbose output. Defaults to False
 
     Returns
@@ -324,7 +324,7 @@ def get_parser():
         "-m",
         "--model",
         required=False,
-        default="word2vec-google-news-300",
+        default="glove-wiki-gigaword-100",
         type=str,
         help="the word2vec model to use",
     )

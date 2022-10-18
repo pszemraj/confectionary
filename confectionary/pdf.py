@@ -193,13 +193,13 @@ class PDF(FPDF):
             ),
         )
 
-    def init_word2vec(self, word2vec_model = "word2vec-google-news-300"):
+    def init_word2vec(self, word2vec_model = "glove-wiki-gigaword-100"):
         """
         init_word2vec - initialize the word2vec model
 
         Parameters
         ----------
-        word2vec_model : str, optional, default "word2vec-google-news-300", the word2vec model to use. loaded from gensim API.
+        word2vec_model : str, optional, default "glove-wiki-gigaword-100", the word2vec model to use. loaded from gensim API.
         """
         if self.split_paragraphs and not self.initialized_word2vec:
             gensim_model = load_word2vec_model(word2vec_model = word2vec_model)
@@ -225,7 +225,7 @@ class PDF(FPDF):
         self.ln(4)
 
     def chapter_body_filepath(
-        self, filepath, collapse_source_newlines=True, verbose=False, std_font=14, word2vec_model = "word2vec-google-news-300"
+        self, filepath, collapse_source_newlines=True, verbose=False, std_font=14, word2vec_model = "glove-wiki-gigaword-100"
     ):
         """
         chapter_body_filepath - read in a file and add to the PDF as a chapter
@@ -235,7 +235,7 @@ class PDF(FPDF):
         filepath : str, filepath to the file to be added to the PDF
         verbose : bool, optional, by default False
         std_font : int, optional, by default 14
-        word2vec_model : str, optional, default "word2vec-google-news-300", the word2vec model to use. loaded from gensim API.
+        word2vec_model : str, optional, default "glove-wiki-gigaword-100", the word2vec model to use. loaded from gensim API.
         """
 
         with open(filepath, "r", encoding="UTF-8", errors="ignore") as f:
@@ -277,14 +277,14 @@ class PDF(FPDF):
         self.set_font("", "I")
         self.cell(0, th, "(end of excerpt)")
 
-    def chapter_body_fromURL(self, aURL:str, word2vec_model = "word2vec-google-news-300"):
+    def chapter_body_fromURL(self, aURL:str, word2vec_model = "glove-wiki-gigaword-100"):
         """
         chapter_body_fromURL - read in a URL and add to the PDF as a chapter
 
         Parameters
         ----------
         aURL : str, the URL to be added to the PDF
-        word2vec_model : str, optional, default "word2vec-google-news-300", the word2vec model to use. loaded from gensim API.
+        word2vec_model : str, optional, default "glove-wiki-gigaword-100", the word2vec model to use. loaded from gensim API.
         """
 
         session = urllib.request.urlopen(aURL)
@@ -315,14 +315,14 @@ class PDF(FPDF):
         self.set_font("", "I")
         self.cell(0, 5, "(end of excerpt)")
 
-    def print_chapter(self, filepath, num: int, title: str = "", word2vec_model = "word2vec-google-news-300"):
+    def print_chapter(self, filepath, num: int, title: str = "", word2vec_model = "glove-wiki-gigaword-100"):
         """
         print_chapter is a wrapper for chapter_body that takes a filepath, title, and number, and prints the chapter
 
         :param fname: filepath to text file to be added to the PDF
         :param num: chapter number
         :param title: chapter title, optional, default ""
-        :param word2vec_model: word2vec model to use if splitting paragrapgs, default is "word2vec-google-news-300"
+        :param word2vec_model: word2vec model to use if splitting paragrapgs, default is "glove-wiki-gigaword-100"
 
         :return: None
         """
@@ -330,7 +330,7 @@ class PDF(FPDF):
         self.chapter_title(num, title)
         self.chapter_body_filepath(filepath, word2vec_model = word2vec_model)
 
-    def print_chapter_URL(self, theURL, num: int, title: str = "", word2vec_model = "word2vec-google-news-300"):
+    def print_chapter_URL(self, theURL, num: int, title: str = "", word2vec_model = "glove-wiki-gigaword-100"):
         """
         print_chapter_URL is a wrapper for chapter_body that takes a URL, title, and number, and prints the chapter from the URL
 
@@ -339,7 +339,7 @@ class PDF(FPDF):
         theURL : str, URL
         num : int, chapter number, starting at 1
         title : str, optional, title of chapter
-        word2vec_model : str, optional, word2vec model to use, by default "word2vec-google-news-300"
+        word2vec_model : str, optional, word2vec model to use, by default "glove-wiki-gigaword-100"
         """
         self.add_page()
         self.chapter_title(num, title)
@@ -370,7 +370,7 @@ class PDF(FPDF):
         self.multi_cell(w=0, h=th, txt=a_title, border="B", ln=1, align="C", fill=False)
         self.ln()
 
-    def generic_text(self, the_text: str, the_size: int = 12, split_paragraphs: bool = False, word2vec_model = "word2vec-google-news-300", use_punkt: bool = True):
+    def generic_text(self, the_text: str, the_size: int = 12, split_paragraphs: bool = False, word2vec_model = "glove-wiki-gigaword-100", use_punkt: bool = True):
         """
         generic_text - write a generic text to the PDF
 
@@ -379,7 +379,7 @@ class PDF(FPDF):
         the_text : str, the text to be written
         the_size : int, optional, by default 12, the font size to be used
         split_paragraphs : bool, optional, by default True, split the text into paragraphs
-        word2vec_model : str, optional, by default "word2vec-google-news-300", the word2vec model to be used
+        word2vec_model : str, optional, by default "glove-wiki-gigaword-100", the word2vec model to be used
         use_punkt : bool, optional, by default True, use the Punkt sentence tokenizer
 
         """
