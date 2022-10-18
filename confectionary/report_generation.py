@@ -1,5 +1,5 @@
 """
-this script contains helper functions to generate a PDF report from a list of entries, including paragraphs splitting by coherence, and a table of contents.
+this script contains helper functions to generate a PDF report from a list of entries, including paragraph splitting by coherence, and a table of contents.
 """
 import math
 import pickle
