@@ -2,7 +2,7 @@
 
 > Work in the NLP domain and find that your end users/clients don't like using `.txt` files with your excellent results? Look no further!
 
-PDF Confectionary is a tool for quickly creating templated PDFs from text files using [FPDF2](https://pyfpdf.github.io/fpdf2/index.html). Essentially, point it at a directory of text files, and some *sweet* PDFs.
+PDF Confectionary is a tool for quickly creating templated PDFs from text files using [FPDF2](https://pyfpdf.github.io/fpdf2/index.html). Essentially, point it at a directory of text files, and generate some *sweet* PDFs.
 
 ## About
 
