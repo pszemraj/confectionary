@@ -61,7 +61,22 @@ Call `python confectionary/text2pdf.py -i /path/to/input/dir -o /path/to/output/
     -kw "my keywords to label this document"
 ```
 
-Console output is below (in the next section), and the result file is in the output directory `example/outputs`.
+Running the the above command on the example files provided in the `examples` directory will creates a PDF in the `examples/output` directory, and the console output was the below:
+
+```
+$ python confectionary/text2pdf.py -i "example/text-files" -o "example/outputs" -kw "my keywords to label this document"
+3 files found matching extension .txt
+
+# entries is 3, < title thresh 39
+will use one page for TOC
+
+Building Chapters in PDF file:   0%|                                  | 0/3 [00:00<?, ?it/s]
+Loaded word2vec model glove-wiki-gigaword-100
+Building Chapters in PDF file: 100%|██████████████████████████| 3/3 [00:00<00:00,  3.02it/s]
+100%|███████████████████████████████████████████████████████| 3/3 [00:00<00:00, 2568.99it/s]
+
+PDF file written to example\outputs\pdf_from_txt_Oct-18-2022\my keywords to label this document_txt2pdf_Oct-18-2022_standard.pdf
+```
 
 Find out more about the command line tool by running `python confectionary/text2pdf.py -h`.
 
