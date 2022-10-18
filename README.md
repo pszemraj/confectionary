@@ -4,6 +4,18 @@
 
 PDF Confectionary is a tool for quickly creating templated PDFs from text files using [FPDF2](https://pyfpdf.github.io/fpdf2/index.html). Essentially, point it at a directory of text files, and generate some _sweet_ PDFs.
 
+* * *
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/74869040/196545251-fb28e9ab-aa89-4c7d-b144-83e746f5d7c9.png" width="640" height="400">
+</p>
+
+<p align="center">
+<i>Quickly convert text files into readable, paragraph-segmented PDFs that are easy to navigate.</i>
+</p>
+
+* * *
+
 **Table of Contents**
 
 <!-- TOC -->
@@ -22,15 +34,11 @@ PDF Confectionary is a tool for quickly creating templated PDFs from text files 
 
 <!-- /TOC -->
 
+* * *
+
 ## About
 
-<p align="center">
-<img src="https://user-images.githubusercontent.com/74869040/196337180-95e10587-f14c-40c5-b585-b1d4fc12cea2.png" width="900" height="450">
-</p>
 
-<p align="center">
-<i>Quickly convert text files into readable, paragraph-segmented PDFs that are easy to navigate.</i>
-</p>
 
 The focus of this repo is to provide a simple, easy-to-use, and extensible PDF creation tool. Relevant features in PDF Confectionary include:
 
@@ -41,6 +49,8 @@ The focus of this repo is to provide a simple, easy-to-use, and extensible PDF c
 This module was inspired by the need to create clean output documents for reading & review speech transcription from the [vid2cleantxt](https://github.com/pszemraj/vid2cleantxt) project. PDF Confectionary was initially designed as a command-line tool but provides a Python API for more advanced use cases.
 
 * * *
+
+
 
 ## Installation
 
