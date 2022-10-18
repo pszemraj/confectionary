@@ -2,7 +2,7 @@
 
 > Work in the NLP domain and find that your end users/clients don't like using `.txt` files with your excellent results? Look no further!
 
-PDF Confectionary is a tool for quickly creating templated PDFs from text files using [FPDF2](https://pyfpdf.github.io/fpdf2/index.html). Create some *sweet* PDFs.
+PDF Confectionary is a tool for quickly creating templated PDFs from text files using [FPDF2](https://pyfpdf.github.io/fpdf2/index.html). Essentially, point it at a directory of text files, and some *sweet* PDFs.
 
 ## About
 
@@ -12,16 +12,16 @@ PDF Confectionary is a tool for quickly creating templated PDFs from text files 
 </p>
 
 <p align="center">
-<i>Easily convert text files into readable, paragraph-segmented PDFs that are easy to navigate.</i>
+<i>Quickly convert text files into readable, paragraph-segmented PDFs that are easy to navigate.</i>
 </p>
 
-The primary focus of this repo is to provide a simple, easy-to-use, and extensible PDF creation tool. Relevant features in PDF Confectionary include:
+The focus of this repo is to provide a simple, easy-to-use, and extensible PDF creation tool. Relevant features in PDF Confectionary include:
 
 - Automatic paragraph separation via the ``textsplit`` module
 - Fast navigation through generated PDFs via links between TOC to chapters & footer links back to TOC.
 - Keyword extraction for each text file
 
-The need to create clean output documents for reading & review on speech transcription from the [vid2cleantxt](https://github.com/pszemraj/vid2cleantxt) project inspired this module. PDF Confectionary was initially designed as a command-line tool but provides a Python API for more advanced use cases.
+This module was inspired by the need to create clean output documents for reading & review speech transcription from the [vid2cleantxt](https://github.com/pszemraj/vid2cleantxt) project. PDF Confectionary was initially designed as a command-line tool but provides a Python API for more advanced use cases.
 
 ---
 
@@ -67,10 +67,10 @@ Call `python confectionary/text2pdf.py -i /path/to/input/dir -o /path/to/output/
 
 ```bash
     python confectionary/text2pdf.py -i /path/to/input/dir -o /path/to/output/dir \
-    -kw "my keywords to label this document"
+    -kw "my keywords to label this document."
 ```
 
-Running the the above command on the example files provided in the `examples` directory will creates a PDF in the `examples/output` directory, and the console output was the below:
+Running the above command on the example files provided in the `examples` directory will create a PDF in the `examples/output` directory, and the console output was the below:
 
 ```
 $ python confectionary/text2pdf.py -i "example/text-files" -o "example/outputs" -kw "my keywords to label this document"
