@@ -177,9 +177,9 @@ def dir_to_pdf(
 
     Parameters
     ----------
-    input_dir : str or pathlib.Path, the path to the directory containing the files to convert
+    input_dir : str or pathlib.Path, the path to the directory containing the files to convert into a single PDF.
     output_dir : str or pathlib.Path, optional, the path to the directory to write the output files to. Defaults to input_dir
-    extension : str, optional, the extension of the files to convert. Defaults to '.txt'
+    extension : str, optional, the extension of the files to convert when iterating through the directory. Defaults to ".txt".
     recurse : bool, optional, whether to load files recursively from the input directory. Defaults to False
     key_phrase : str, optional, the key phrase to identify the conversion instance. Defaults to None
     intro_text : str, optional, the text to be written at the top of the output file. Defaults to None
@@ -304,7 +304,7 @@ def get_parser():
         required=False,
         default=None,
         type=str,
-        help="keywords identifying files to be processed",
+        help="some key words or phrases to help identify the output file",
     )
     parser.add_argument(
         "-e",
@@ -319,7 +319,7 @@ def get_parser():
         required=False,
         default=False,
         action="store_true",
-        help="if set, will not split the text into paragraphs (faster)",
+        help="if set, will not split the text into paragraphs (faster, less readable)",
     )
     parser.add_argument(
         "-m",

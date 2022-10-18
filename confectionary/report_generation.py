@@ -39,8 +39,12 @@ def load_word2vec_model(
     Loads a word2vec model through the gensim.data api.
 
         See this repo for more details: https://github.com/RaRe-Technologies/gensim-data
+        the print_api_info() function will print the available models to load.
 
-    :param model_name: Name of the model to load.
+    :param word2vec_model: Name of the model to load, default is "glove-wiki-gigaword-100"
+    :param storage_loc: Location to store the model locally, defaults to current working directory as a subdirectory called "models"
+    :param verbose: bool, default False, print the model info
+
     :return: Word2Vec model, a gensim.models.keyedvectors.Word2VecKeyedVectors object
     """
     storage_loc = Path(storage_loc)
@@ -55,6 +59,7 @@ def load_word2vec_model(
         print(f"\nNo local model file - downloading {word2vec_model} from gensim-data API")
         model = api.load(word2vec_model)
         pickle.dump(model, open(storage_loc / (word2vec_model + ".pkl"), "wb"))
+    print(f"Loaded word2vec model {word2vec_model}")
     return model
 
 
