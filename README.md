@@ -1,18 +1,18 @@
 # PDF Confectionary :cupcake
 
-> Do you work in the NLP domain and find that your end users/clients are not thrilled by receiving a ton of .txt files with your amazing results? Look no further; you are at the right place!
+> Work in the NLP domain and find that your end users/clients don't like using `.txt` files with your excellent results? Look no further!
 
 PDF Confectionary is a tool for quickly creating templated PDFs from text files using [FPDF2](https://pyfpdf.github.io/fpdf2/index.html). Create some *sweet* PDFs.
 
 ## About
 
-The primary focus of this repo is to provide a simple, easy to use, and extensible PDF creation tool. T Relevant features in PDF Confectionary include:
+The primary focus of this repo is to provide a simple, easy-to-use, and extensible PDF creation tool. Relevant features in PDF Confectionary include:
 
 - Automatic paragraph separation via the ``textsplit`` module
 - Fast navigation through generated PDFs via links between TOC to chapters & footer links back to TOC.
-- Keyword extraction for each txt file
+- Keyword extraction for each text file
 
-The initial use case that inspired this project was the need creating clean output documents for reading & review from speech transcription in the [vid2cleantxt](https://github.com/pszemraj/vid2cleantxt) project. PDF Confectionary was initially designed as a command-line tool, but also provides a Python API for more advanced use cases.
+The need to create clean output documents for reading & review on speech transcription from the [vid2cleantxt](https://github.com/pszemraj/vid2cleantxt) project inspired this module. PDF Confectionary was initially designed as a command-line tool but provides a Python API for more advanced use cases.
 
 ---
 
@@ -20,8 +20,9 @@ The initial use case that inspired this project was the need creating clean outp
 
 ### Requirements
 
-- the primary requirements are: [FPDF2](https://pyfpdf.github.io/fpdf2/index.html), [textsplit](https://github.com/chschock/textsplit), [gensim](https://radimrehurek.com/gensim/), and [clean-text](https://github.com/jfilter/clean-text).
-- Requirements are listed in the ``requirements.txt`` file.
+Primary modules used by `confectionary` are: [FPDF2](https://pyfpdf.github.io/fpdf2/index.html), [textsplit](https://github.com/chschock/textsplit), [gensim](https://radimrehurek.com/gensim/), and [clean-text](https://github.com/jfilter/clean-text).
+
+All dependencies are listed in the ``requirements.txt`` file.
 
 ### Package Installation
 
@@ -39,7 +40,7 @@ cd confectionary
 python setup.py install
 ```
 
-\*Note: running `setup.py` can be replaced with `pip install -e .` if you are in the root directory of the repo.
+\*Note: running `setup.py` can be replaced with `pip install -e .` if you are in the repo's root directory.
 
 ## Usage
 
@@ -49,19 +50,20 @@ There are two ways to use PDF Confectionary:
 
 2. Python API via functions in the `confectionary.text2pdf` module. The `dir_to_pdf` function is the equivalent of the command line tool application.
 
-Both create one pdf from all txt files in the input directory and save it to the output directory. Add the `-r` switch (or `recurse=True` in function) to load files recursively.
+Both create one pdf from all txt files in the input directory, saved to ``output_dir``. Add the `-r` switch (or `recurse=True` in function) to load files recursively.
 
 ### Command Line Usage
 
-- call `python confectionary/text2pdf.py -i /path/to/input/dir -o /path/to/output/dir` to create a pdf from all txt files in the input directory and save it to the output directory:
+Call `python confectionary/text2pdf.py -i /path/to/input/dir -o /path/to/output/dir` to create a pdf from all txt files in the input directory and save it to the output directory:
 
 ```bash
-    python confectionary/text2pdf.py -i /path/to/input/dir -o /path/to/output/dir -kw "my keywords to label this document"
+    python confectionary/text2pdf.py -i /path/to/input/dir -o /path/to/output/dir \
+    -kw "my keywords to label this document"
 ```
 
-- console output is below (in the next section), the result file is in the output directory `example/outputs`.
+Console output is below (in the next section), and the result file is in the output directory `example/outputs`.
 
-Find out more info about the command line tool by running `python confectionary/text2pdf.py -h`.
+Find out more about the command line tool by running `python confectionary/text2pdf.py -h`.
 
 ### Basic Usage within Python
 
@@ -96,19 +98,19 @@ inspect.getdoc(dir_to_pdf)
 
 ### Note
 
-Splitting input text into paragraphs is enabled by default and uses a *word2vec* model to do so. If it doesn't exist, it will be downloaded via `gensim`'s API, and saved to the `./models` directory.
+Splitting input text into paragraphs is enabled by default and uses a *word2vec* model. If it doesn't exist, it will be downloaded via `gensim`'s API and saved to the `./models` directory.
 
-- the quality of the paragraph splitting is dependent on the quality of the *word2vec* model. If you want to use a different model, you can pass the path to the model to the `dir_to_pdf` function via the `word2vec_model` argument.
-- additional models that are downloadable are listed [here](<https://github.com/RaRe-Technologies/gensim-data>). This info is also available by passing the ``--api-info`` flag to the command line tool or by calling the `confectionary.report_generator.print_api_info()` function.
-- Using paragraph splitting is not required, and can be disabled by setting the `do_paragraph_splitting` parameter to `False` or in command line mode, by adding the `--no-split` switch.
+- the quality of the paragraph splitting depends on the quality of the *word2vec* model. If you want to use a different model, you can pass the path to the model to the `dir_to_pdf` function via the `word2vec_model` argument.
+- additional models that are downloadable are listed [here](<https://github.com/RaRe-Technologies/gensim-data>). This info is also available by passing the ``--api-info`` flag to the command line tool or calling the `confectionary.report_generator.print_api_info()` function.
+- Using paragraph splitting is not required and can be disabled by setting the `do_paragraph_splitting` parameter to `False` or, in command line mode, by adding the `--no-split` switch.
 
 ---
 
 ## TODO list
 
-- [x] convert the text2pdf.py script to a module/function
+- [x] convert the `text2pdf.py` script to a module/function
 - [x] publish to PyPI
-- [x] add alternate, smaller, word2vec models for splitting paragraphs
+- [x] add alternate, smaller, *word2vec* models for splitting paragraphs
 - [ ] improve TOC calculation beyond a simple title threshold
 - [ ] Add a basic notebook demo
 
