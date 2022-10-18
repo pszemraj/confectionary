@@ -1,4 +1,3 @@
-unidecode
 clean-text
 fpdf2
 gensim
@@ -10,3 +9,4 @@ textsplit
 tqdm
 wordninja
 yake
+joblib==1.2.0
