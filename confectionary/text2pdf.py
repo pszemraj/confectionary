@@ -16,7 +16,6 @@ from tqdm.auto import tqdm
 from confectionary.pdf import PDF
 from confectionary.report_generation import (
     estimate_TOC_pages,
-    print_api_info,
     render_toc,
 )
 from confectionary.utils import (
@@ -26,6 +25,7 @@ from confectionary.utils import (
     load_files_ext,
     simple_rename,
     get_user,
+    print_api_info,
 )
 
 

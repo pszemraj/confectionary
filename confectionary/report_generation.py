@@ -2,7 +2,6 @@
 this script contains helper functions to generate a PDF report from a list of entries, including paragraph splitting by coherence, and a table of contents.
 """
 import math
-import pprint as pp
 import warnings
 from pathlib import Path
 
@@ -18,18 +17,6 @@ model_storage_loc = Path.cwd() / "models"
 model_storage_loc.mkdir(exist_ok=True)
 
 
-def print_api_info(verbose=False):
-    """print_api_info - prints possible word2vec models to load for paragraph splitting"""
-
-    model_info = api.info()["models"]
-
-    labels = [m for m in model_info.keys()]
-    print("Available word2vec models:")
-    if verbose:
-        pp.pprint(model_info)
-        print("See https://github.com/RaRe-Technologies/gensim-data for more info")
-    else:
-        pp.pprint(labels)
 
 
 def load_word2vec_model(
