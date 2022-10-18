@@ -293,11 +293,9 @@ class PDF(FPDF):
         self.set_font("Times", "", 10)
         # Text height
         th = self.font_size
-
-        for line in session:
-            URL_line = line.decode("utf-8")
-            enc_line = URL_line.encode("latin-1", errors="replace")
-            decoded_line = enc_line.decode("latin-1")
+        text = session.read().decode("utf-8")
+        enc_line = text.encode("latin-1", errors="replace")
+        decoded_line = enc_line.decode("latin-1")
         if self.split_paragraphs:
             self.init_word2vec(word2vec_model = word2vec_model)
             paragraph_list = split_to_pars(
