@@ -2,12 +2,12 @@
 this script contains helper functions to generate a PDF report from a list of entries, including paragraph splitting by coherence, and a table of contents.
 """
 import math
-import pickle
+import pprint as pp
 import warnings
 from pathlib import Path
-import pprint as pp
 
 import gensim.downloader as api
+import joblib
 import nltk
 from sklearn.feature_extraction.text import CountVectorizer
 from textsplit.algorithm import split_optimal
@@ -53,16 +53,19 @@ def load_word2vec_model(
     storage_loc.mkdir(exist_ok=True)
 
     # check if an existing .pkl file exists with the same name, otherwise load it
-    if (storage_loc / (word2vec_model + ".pkl")).exists():
+    model_path = storage_loc / f"{word2vec_model}.pkl"
+    if model_path.exists():
         if verbose:
             print("\nLoading existing word2vec model from {}".format(word2vec_model))
-        model = pickle.load(open(storage_loc / (word2vec_model + ".pkl"), "rb"))
+        model = joblib.load(model_path)
     else:
         print(
             f"\nNo local model file - downloading {word2vec_model} from gensim-data API"
         )
         model = api.load(word2vec_model)
-        pickle.dump(model, open(storage_loc / (word2vec_model + ".pkl"), "wb"))
+        joblib.dump(model, model_path, compress=True)
+        if verbose:
+            print(f"Saved model to {model_path}")
     print(f"\nLoaded word2vec model {word2vec_model}")
     return model
 
