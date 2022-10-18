@@ -24,15 +24,27 @@ class PDF(FPDF):
 
     def __init__(
         self,
-        orientation="P",
-        unit="mm",
-        format="A4",
+        orientation:str="P",
+        unit:str="mm",
+        format:str="A4",
         font_cache_dir=None,
-        key_phrase="text2pdf",
+        key_phrase:str="text2pdf",
         is_ewriter=False,
         split_paragraphs=True,
-        bottom_margin=10,
+        bottom_margin:int=10,
     ):
+        """
+        __init__ - initialize the PDF class
+
+        :param str orientation: the orientation of the PDF default "P"
+        :param str unit: the unit of the PDF default "mm"
+        :param str format: the page format of the PDF default "A4"
+        :param _type_ font_cache_dir:  local directory - font cache, default None
+        :param str key_phrase: the key phrase to be used in the footer, default "text2pdf"
+        :param bool is_ewriter: if True, set margins large (narrow text columns), default False
+        :param bool split_paragraphs: if True, performs paragraph splitting from raw text, default True
+        :param int bottom_margin: the bottom margin of the PDF (in mm), default 10
+        """
         super().__init__(orientation, unit, format, font_cache_dir)
         self.key_phrase = key_phrase
         self.is_ewriter = is_ewriter
@@ -223,6 +235,7 @@ class PDF(FPDF):
         filepath : str, filepath to the file to be added to the PDF
         verbose : bool, optional, by default False
         std_font : int, optional, by default 14
+        word2vec_model : str, optional, default "word2vec-google-news-300", the word2vec model to use. loaded from gensim API.
         """
 
         with open(filepath, "r", encoding="UTF-8", errors="ignore") as f:
@@ -271,6 +284,7 @@ class PDF(FPDF):
         Parameters
         ----------
         aURL : str, the URL to be added to the PDF
+        word2vec_model : str, optional, default "word2vec-google-news-300", the word2vec model to use. loaded from gensim API.
         """
 
         session = urllib.request.urlopen(aURL)
@@ -308,7 +322,7 @@ class PDF(FPDF):
         :param fname: filepath to text file to be added to the PDF
         :param num: chapter number
         :param title: chapter title, optional, default ""
-        :param word2vec_model: word2vec model to use, default is "word2vec-google-news-300"
+        :param word2vec_model: word2vec model to use if splitting paragrapgs, default is "word2vec-google-news-300"
 
         :return: None
         """
