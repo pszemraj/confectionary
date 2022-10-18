@@ -6,6 +6,15 @@ PDF Confectionary is a tool for quickly creating templated PDFs from text files 
 
 ## About
 
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/74869040/196337180-95e10587-f14c-40c5-b585-b1d4fc12cea2.png" width="900" height="450">
+</p>
+
+<p align="center">
+<i>Easily convert text files into readable, paragraph-segmented PDFs that are easy to navigate.</i>
+</p>
+
 The primary focus of this repo is to provide a simple, easy-to-use, and extensible PDF creation tool. Relevant features in PDF Confectionary include:
 
 - Automatic paragraph separation via the ``textsplit`` module
