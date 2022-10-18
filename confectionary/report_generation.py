@@ -39,9 +39,13 @@ def load_word2vec_model(
             print("Loading existing word2vec model from {}".format(word2vec_model))
         model = pickle.load(open(storage_loc / (word2vec_model + ".pkl"), "rb"))
     else:
-        print(f"Downloading {word2vec_model} from gensim-data API")
+        print(f"\nNo local model file - downloading {word2vec_model} from gensim-data API")
         model = api.load(word2vec_model)
         pickle.dump(model, open(storage_loc / (word2vec_model + ".pkl"), "wb"))
+        if verbose:
+            print("Saved model to {}".format(storage_loc / (word2vec_model + ".pkl")))
+
+    print(f"Loaded {word2vec_model} model")
     return model
 
 
