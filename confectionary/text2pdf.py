@@ -214,11 +214,10 @@ def dir_to_pdf(
     """
 
     src_dir = Path(input_dir)
-    out_dir = Path(output_dir) if output_dir else src_dir.parent
+    out_dir = Path(output_dir) if output_dir else src_dir
     key_phrase = "Confectionary txt2pdf" if key_phrase is None else key_phrase
 
-    out_subfolder = f"pdf_from_txt_{get_timestamp()}"
-    out_p_full = out_dir / out_subfolder
+    out_p_full = out_dir / "text-to-PDF"
     out_p_full.mkdir(parents=True, exist_ok=True)
 
     approved_files = load_files_ext(
