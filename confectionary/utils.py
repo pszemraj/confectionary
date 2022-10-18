@@ -73,7 +73,7 @@ def get_first_number(my_string: str):
         warnings.warn(
             "No number found in string: {}, returning random".format(my_string)
         )
-        return random.randint(0, 10 ** 8)
+        return random.randint(0, 10**8)
     else:
         return int(search.group(0))
 

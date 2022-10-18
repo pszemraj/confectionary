@@ -17,10 +17,11 @@ from tqdm.auto import tqdm
 model_storage_loc = Path.cwd() / "models"
 model_storage_loc.mkdir(exist_ok=True)
 
+
 def print_api_info(verbose=False):
     """print_api_info - prints possible word2vec models to load for paragraph splitting"""
 
-    model_info = api.info()['models']
+    model_info = api.info()["models"]
 
     labels = [m for m in model_info.keys()]
     print("Available word2vec models:")
@@ -30,8 +31,9 @@ def print_api_info(verbose=False):
     else:
         pp.pprint(labels)
 
+
 def load_word2vec_model(
-    word2vec_model:str="glove-wiki-gigaword-100",
+    word2vec_model: str = "glove-wiki-gigaword-100",
     storage_loc=model_storage_loc,
     verbose=False,
 ):
@@ -56,7 +58,9 @@ def load_word2vec_model(
             print("\nLoading existing word2vec model from {}".format(word2vec_model))
         model = pickle.load(open(storage_loc / (word2vec_model + ".pkl"), "rb"))
     else:
-        print(f"\nNo local model file - downloading {word2vec_model} from gensim-data API")
+        print(
+            f"\nNo local model file - downloading {word2vec_model} from gensim-data API"
+        )
         model = api.load(word2vec_model)
         pickle.dump(model, open(storage_loc / (word2vec_model + ".pkl"), "wb"))
     print(f"\nLoaded word2vec model {word2vec_model}")
