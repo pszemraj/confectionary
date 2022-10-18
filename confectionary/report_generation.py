@@ -17,8 +17,6 @@ model_storage_loc = Path.cwd() / "models"
 model_storage_loc.mkdir(exist_ok=True)
 
 
-
-
 def load_word2vec_model(
     word2vec_model: str = "glove-wiki-gigaword-100",
     storage_loc=model_storage_loc,

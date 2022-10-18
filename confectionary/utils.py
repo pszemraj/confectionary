@@ -470,6 +470,7 @@ def find_text_keywords(body_text: str, yake_ex=None, return_list=False, verbose=
         print(f"found {len(keywords)} keywords: \n{kw_string}")
     return kw_string
 
+
 def print_api_info(verbose=False):
     """print_api_info - prints possible word2vec models to load for paragraph splitting"""
 
