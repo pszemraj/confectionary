@@ -225,7 +225,7 @@ class PDF(FPDF):
         self.ln(4)
 
     def chapter_body_filepath(
-        self, filepath, collapse_source_newlines=True, verbose=False, std_font=14, word2vec_model = "glove-wiki-gigaword-100"
+        self, filepath, collapse_source_newlines=True, verbose=False, std_font=14, word2vec_model = "glove-wiki-gigaword-100", use_punkt = True
     ):
         """
         chapter_body_filepath - read in a file and add to the PDF as a chapter
@@ -236,6 +236,7 @@ class PDF(FPDF):
         verbose : bool, optional, by default False
         std_font : int, optional, by default 14
         word2vec_model : str, optional, default "glove-wiki-gigaword-100", the word2vec model to use. loaded from gensim API.
+        use_punkt : bool, optional, default True, whether to use the Punkt sentence tokenizer
         """
 
         with open(filepath, "r", encoding="UTF-8", errors="ignore") as f:
@@ -257,7 +258,7 @@ class PDF(FPDF):
         if self.split_paragraphs:
             self.init_word2vec(word2vec_model = word2vec_model)
             paragraph_list = split_to_pars(
-                decoded_line, wordvectors=self.wrdvecs, use_punkt=True
+                decoded_line, wordvectors=self.wrdvecs, use_punkt=use_punkt
             )
             for par in paragraph_list:
                 formatted_par = " " * 8 + par.strip()
@@ -277,7 +278,7 @@ class PDF(FPDF):
         self.set_font("", "I")
         self.cell(0, th, "(end of excerpt)")
 
-    def chapter_body_fromURL(self, aURL:str, word2vec_model = "glove-wiki-gigaword-100"):
+    def chapter_body_fromURL(self, aURL:str, word2vec_model = "glove-wiki-gigaword-100", use_punkt = True):
         """
         chapter_body_fromURL - read in a URL and add to the PDF as a chapter
 
@@ -285,6 +286,7 @@ class PDF(FPDF):
         ----------
         aURL : str, the URL to be added to the PDF
         word2vec_model : str, optional, default "glove-wiki-gigaword-100", the word2vec model to use. loaded from gensim API.
+        use_punkt : bool, optional, default True, whether to use the Punkt sentence tokenizer
         """
 
         session = urllib.request.urlopen(aURL)
@@ -299,7 +301,7 @@ class PDF(FPDF):
         if self.split_paragraphs:
             self.init_word2vec(word2vec_model = word2vec_model)
             paragraph_list = split_to_pars(
-                decoded_line, wordvectors=self.wrdvecs, use_punkt=True
+                decoded_line, wordvectors=self.wrdvecs, use_punkt=use_punkt
             )
             for par in paragraph_list:
                 formatted_par = " " * 8 + par.strip()
@@ -315,7 +317,7 @@ class PDF(FPDF):
         self.set_font("", "I")
         self.cell(0, 5, "(end of excerpt)")
 
-    def print_chapter(self, filepath, num: int, title: str = "", word2vec_model = "glove-wiki-gigaword-100"):
+    def print_chapter(self, filepath, num: int, title: str = "", word2vec_model = "glove-wiki-gigaword-100", use_punkt = True):
         """
         print_chapter is a wrapper for chapter_body that takes a filepath, title, and number, and prints the chapter
 
@@ -328,9 +330,9 @@ class PDF(FPDF):
         """
         self.add_page()
         self.chapter_title(num, title)
-        self.chapter_body_filepath(filepath, word2vec_model = word2vec_model)
+        self.chapter_body_filepath(filepath, word2vec_model = word2vec_model, use_punkt=use_punkt)
 
-    def print_chapter_URL(self, theURL, num: int, title: str = "", word2vec_model = "glove-wiki-gigaword-100"):
+    def print_chapter_URL(self, theURL, num: int, title: str = "", word2vec_model = "glove-wiki-gigaword-100", use_punkt=True):
         """
         print_chapter_URL is a wrapper for chapter_body that takes a URL, title, and number, and prints the chapter from the URL
 
@@ -343,7 +345,7 @@ class PDF(FPDF):
         """
         self.add_page()
         self.chapter_title(num, title)
-        self.chapter_body_fromURL(theURL, word2vec_model = word2vec_model)
+        self.chapter_body_fromURL(theURL, word2vec_model = word2vec_model, use_punkt=use_punkt)
 
     def figure_title(self, title: str):
         """

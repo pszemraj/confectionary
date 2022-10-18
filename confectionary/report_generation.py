@@ -154,7 +154,8 @@ def split_to_pars(
     -------
     list of str, the paragraphs of the text
     """
-
+    if verbose:
+        print(f"Splitting text into paragraphs using {segment_len}-word segments")
     sent_detector = (
         load_punkt(use_punkt) if use_punkt and sent_detector is None else sent_detector
     )
