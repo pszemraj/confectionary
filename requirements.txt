@@ -1,11 +1,11 @@
 clean-text
-fpdf2
+fpdf2==2.5.7
 gensim==4.2.0
 natsort
-nltk
+nltk==3.7.0
 pandas
 scikit-learn
-textsplit
+textsplit==0.5
 tqdm
 wordninja
 yake
