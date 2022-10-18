@@ -1,4 +1,4 @@
-# PDF Confectionary :cupcake
+# PDF Confectionary :cupcake:
 
 > Work in the NLP domain and find that your end users/clients don't like using `.txt` files with your excellent results? Look no further!
 
