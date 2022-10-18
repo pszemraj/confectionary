@@ -77,7 +77,7 @@ def str_to_pdf(
     pdf.add_page()
 
     pdf.write_big_title(title)
-    pdf.generic_text(text, split_paragraphs=do_paragraph_splitting, word2vec_model=word2vec_model, nltk_usepunkt=nltk_usepunkt)
+    pdf.generic_text(text, split_paragraphs=do_paragraph_splitting, word2vec_model=word2vec_model, use_punkt=nltk_usepunkt)
 
     doc_margin_type = "ewriter" if create_ewriter_notes else "standard"
     pdf_name = (
@@ -144,7 +144,7 @@ def file_to_pdf(
         pdf.comment_text(intro_text, preamble="")
     if be_verbose:
         print(f"attempting to print {src_path.name}")
-    pdf.print_chapter(filepath=str(src_path.resolve()), num=1, title=key_phrase, word2vec_model = word2vec_model, nltk_usepunkt=nltk_usepunkt)
+    pdf.print_chapter(filepath=str(src_path.resolve()), num=1, title=key_phrase, word2vec_model = word2vec_model, use_punkt=nltk_usepunkt)
     # save the generated file
     doc_margin_type = "ewriter" if create_ewriter_notes else "standard"
     pdf_name = (
@@ -259,7 +259,7 @@ def dir_to_pdf(
         out_name = out_name[0].upper() + out_name[1:]  # capitalize first letter
         if be_verbose:
             print(f"attempting chapter {i} - filename: {out_name}")
-        pdf.print_chapter(filepath=str(textfile.resolve()), num=i, title=out_name, word2vec_model=word2vec_model, nltk_usepunkt=nltk_usepunkt)
+        pdf.print_chapter(filepath=str(textfile.resolve()), num=i, title=out_name, word2vec_model=word2vec_model, use_punkt=nltk_usepunkt)
         pbar.update()
     pbar.close()
 
