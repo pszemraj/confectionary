@@ -18,3 +18,4 @@ scratch
 *.egg-info
 build
 *confectionary.egg-info/
+*dist/
