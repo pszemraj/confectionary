@@ -100,6 +100,7 @@ def file_to_pdf(
     nltk_usepunkt=True,
     do_paragraph_splitting=True,
     word2vec_model = "glove-wiki-gigaword-100",
+    keywords_enabled = True,
     be_verbose=False,
 ):
     """
@@ -131,6 +132,7 @@ def file_to_pdf(
         is_ewriter=create_ewriter_notes,
         key_phrase=key_phrase,
         split_paragraphs=do_paragraph_splitting,
+        keywords_enabled=keywords_enabled,
     )
     title = f"{key_phrase}"
     pdf.set_title(title)
@@ -170,6 +172,7 @@ def dir_to_pdf(
     nltk_usepunkt=True,
     do_paragraph_splitting=True,
     word2vec_model = "glove-wiki-gigaword-100",
+    keywords_enabled = True,
     be_verbose=False,
 ):
     """
@@ -218,6 +221,8 @@ def dir_to_pdf(
         is_ewriter=create_ewriter_notes,
         key_phrase=key_phrase,
         split_paragraphs=do_paragraph_splitting,
+        keywords_enabled=keywords_enabled,
+
     )
     title = f"{key_phrase}"
     pdf.set_title(title)
@@ -345,6 +350,12 @@ def get_parser():
         help="whether to load files recursively from the input directory",
     )
     parser.add_argument(
+        "--no-keywords",
+        default=False,
+        action="store_true",
+        help="if set, will not add keywords to the PDF",
+    )
+    parser.add_argument(
         "--api-info",
         required=False,
         default=False,
@@ -381,6 +392,7 @@ if __name__ == "__main__":
     word2vec_model = args.model
     nltk_usepunkt = not args.no_punkt
     recurse = args.recursive
+    keywords_enabled = not args.no_keywords
     _finished_pdf_loc = dir_to_pdf(
         input_dir=input_dir,
         output_dir=output_dir,
@@ -391,6 +403,7 @@ if __name__ == "__main__":
         nltk_usepunkt=nltk_usepunkt,
         be_verbose=be_verbose,
         recurse=recurse,
+        keywords_enabled=keywords_enabled,
     )
 
     print(f"\nPDF file written to {_finished_pdf_loc}")
