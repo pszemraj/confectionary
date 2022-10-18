@@ -6,15 +6,15 @@ text2pdf.py - a script to convert text files to pdf. iterates through a director
 python text2pdf.py -i /path/to/input/dir -o /path/to/output/dir will create one pdf from all txt files in the input directory and save it to the output directory. Add -r to load files recursively.
 
 """
+import sys
 import argparse
-import os
 import pprint as pp
 from pathlib import Path
 
 from tqdm.auto import tqdm
 
 from confectionary.pdf import PDF
-from confectionary.report_generation import estimate_TOC_pages, render_toc
+from confectionary.report_generation import estimate_TOC_pages, print_api_info, render_toc
 from confectionary.utils import (
     cleantxt_wrap,
     get_seq2replace,
@@ -285,9 +285,10 @@ def get_parser():
     parser.add_argument(
         "-i",
         "--input-dir",
-        required=True,
+        required=False,
+        default=None,
         type=str,
-        help="path to directory containing input files",
+        help="path to directory containing input files. Required if not using the --api-info flag",
     )
     parser.add_argument(
         "-o",
@@ -344,6 +345,13 @@ def get_parser():
         help="whether to load files recursively from the input directory",
     )
     parser.add_argument(
+        "--api-info",
+        required=False,
+        default=False,
+        action="store_true",
+        help="print the available word2vec models in the gensim API and exit",
+    )
+    parser.add_argument(
         "-v",
         "--verbose",
         required=False,
@@ -358,6 +366,13 @@ def get_parser():
 if __name__ == "__main__":
 
     args = get_parser().parse_args()
+    be_verbose = args.verbose
+
+    if args.api_info:
+        print_api_info(verbose=be_verbose)
+        sys.exit("Exiting...")
+    if args.input_dir is None:
+        sys.exit("No input directory specified. Pass an input directory with the -i flag.")
     input_dir = args.input_dir
     output_dir = args.output_dir
     key_phrase = args.keywords
@@ -365,7 +380,6 @@ if __name__ == "__main__":
     do_paragraph_splitting = not args.no_split
     word2vec_model = args.model
     nltk_usepunkt = not args.no_punkt
-    be_verbose = args.verbose
     recurse = args.recursive
     _finished_pdf_loc = dir_to_pdf(
         input_dir=input_dir,
