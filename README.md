@@ -73,10 +73,8 @@ To install as a python package without pip, run:
 ```bash
 git clone <https://github.com/pszemraj/confectionary.git>
 cd confectionary
-python setup.py install
+pip install -e .
 ```
-
-\*Note: running `setup.py` can be replaced with `pip install -e .` if you are in the repo's root directory.
 
 ## Usage
 
