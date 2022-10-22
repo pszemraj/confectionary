@@ -3,6 +3,7 @@ This file contains utility functions for the project.
 """
 
 import os
+import pprint as pp
 import random
 import re
 import shutil
@@ -11,6 +12,7 @@ from datetime import datetime
 from os.path import join
 from pathlib import Path
 
+import gensim.downloader as api
 import wordninja
 import yake
 from cleantext import clean
@@ -73,7 +75,7 @@ def get_first_number(my_string: str):
         warnings.warn(
             "No number found in string: {}, returning random".format(my_string)
         )
-        return random.randint(0, 10 ** 8)
+        return random.randint(0, 10**8)
     else:
         return int(search.group(0))
 
@@ -467,3 +469,17 @@ def find_text_keywords(body_text: str, yake_ex=None, return_list=False, verbose=
     if verbose:
         print(f"found {len(keywords)} keywords: \n{kw_string}")
     return kw_string
+
+
+def print_api_info(verbose=False):
+    """print_api_info - prints possible word2vec models to load for paragraph splitting"""
+
+    model_info = api.info()["models"]
+
+    labels = [m for m in model_info.keys()]
+    print("Available word2vec models:")
+    if verbose:
+        pp.pprint(model_info)
+        print("See https://github.com/RaRe-Technologies/gensim-data for more info")
+    else:
+        pp.pprint(labels)

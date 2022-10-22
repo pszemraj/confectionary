@@ -1,12 +1,12 @@
 """
-this script contains helper functions to generate a PDF report from a list of entries, including paragraphs splitting by coherence, and a table of contents.
+this script contains helper functions to generate a PDF report from a list of entries, including paragraph splitting by coherence, and a table of contents.
 """
 import math
-import pickle
 import warnings
 from pathlib import Path
 
 import gensim.downloader as api
+import joblib
 import nltk
 from sklearn.feature_extraction.text import CountVectorizer
 from textsplit.algorithm import split_optimal
@@ -18,27 +18,40 @@ model_storage_loc.mkdir(exist_ok=True)
 
 
 def load_word2vec_model(
-    word2vec_mname="word2vec-google-news-300",
+    word2vec_model: str = "glove-wiki-gigaword-100",
     storage_loc=model_storage_loc,
     verbose=False,
 ):
     """
-    Loads a word2vec model from the Google News corpus.
-    :param model_name: Name of the model to load.
-    :return: Word2Vec model.
+    Loads a word2vec model through the gensim.data api.
+
+        See this repo for more details: https://github.com/RaRe-Technologies/gensim-data
+        the print_api_info() function will print the available models to load.
+
+    :param word2vec_model: Name of the model to load, default is "glove-wiki-gigaword-100"
+    :param storage_loc: Location to store the model locally, defaults to current working directory as a subdirectory called "models"
+    :param verbose: bool, default False, print the model info
+
+    :return: Word2Vec model, a gensim.models.keyedvectors.Word2VecKeyedVectors object
     """
     storage_loc = Path(storage_loc)
     storage_loc.mkdir(exist_ok=True)
 
     # check if an existing .pkl file exists with the same name, otherwise load it
-    if (storage_loc / (word2vec_mname + ".pkl")).exists():
+    model_path = storage_loc / f"{word2vec_model}.pkl"
+    if model_path.exists():
         if verbose:
-            print("Loading existing word2vec model from {}".format(word2vec_mname))
-        model = pickle.load(open(storage_loc / (word2vec_mname + ".pkl"), "rb"))
+            print("\nLoading existing word2vec model from {}".format(word2vec_model))
+        model = joblib.load(model_path)
     else:
-        print("Download word2vec model - Google News corpus via gensim")
-        model = api.load(word2vec_mname)
-        pickle.dump(model, open(storage_loc / (word2vec_mname + ".pkl"), "wb"))
+        print(
+            f"\nNo local model file - downloading {word2vec_model} from gensim-data API"
+        )
+        model = api.load(word2vec_model)
+        joblib.dump(model, model_path, compress=True)
+        if verbose:
+            print(f"Saved model to {model_path}")
+    print(f"\nLoaded word2vec model {word2vec_model}")
     return model
 
 
@@ -133,7 +146,8 @@ def split_to_pars(
     -------
     list of str, the paragraphs of the text
     """
-
+    if verbose:
+        print(f"Splitting text into paragraphs using {segment_len}-word segments")
     sent_detector = (
         load_punkt(use_punkt) if use_punkt and sent_detector is None else sent_detector
     )
