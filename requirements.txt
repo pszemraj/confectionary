@@ -2,7 +2,7 @@ clean-text
 fpdf2==2.5.7
 gensim==4.2.0
 natsort
-nltk==3.7.0
+nltk
 pandas
 scikit-learn
 textsplit==0.5
